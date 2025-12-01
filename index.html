@@ -1,44 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Executive Aptitude & Leadership Test</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sienva Executive Aptitude & Leadership Test</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <h1>Sienva — Executive Aptitude & Leadership Test</h1>
+      <p>Measures: Logic, Performance, Leadership, Innovation + Big Five personality</p>
+    </header>
 
-    <div class="container">
-        <h1>Executive Aptitude & Leadership Test</h1>
-        <div id="test-container">
-            <div id="question-card">
-                <p id="question-number" class="q-number"></p>
-                <h2 id="scenario-title"></h2>
-                <p id="scenario-text"></p>
-                <div id="options-container" class="options">
-                    </div>
-                <button id="next-button" disabled>Next Question</button>
-            </div>
+    <section id="login-section" class="card">
+      <h2>Enter participant details</h2>
+      <label>
+        Full name
+        <input id="username" type="text" placeholder="Jane Doe" />
+      </label>
+      <label>
+        Email
+        <input id="email" type="email" placeholder="jane@company.com" />
+      </label>
+
+      <label>
+        Choose module
+        <select id="module-select">
+          <option value="Module A">Module A — Executive Aptitude (50 Q)</option>
+        </select>
+      </label>
+
+      <button id="start-button">Start Test</button>
+    </section>
+
+    <section id="test-section" class="card hidden">
+      <div id="progress">Question <span id="q-index">1</span> / <span id="q-total">50</span></div>
+      <h2 id="scenario-title">Scenario title</h2>
+      <p id="scenario-text">Scenario text</p>
+
+      <div id="options-container" class="options"></div>
+
+      <div class="controls">
+        <button id="prev-button" class="secondary">Previous</button>
+        <button id="next-button" disabled>Next</button>
+      </div>
+    </section>
+
+    <section id="results-section" class="card hidden">
+      <h2>Results for <span id="res-name"></span></h2>
+      <div id="summary"></div>
+
+      <div class="results-grid">
+        <div>
+          <h3>Competencies</h3>
+          <ul id="competency-list"></ul>
         </div>
 
-        <div id="results-container" class="hidden">
-            <h2>Test Results</h2>
-            <div id="result-summary"></div>
-
-            <div class="metrics-section">
-                <h3>Executive Competencies Score</h3>
-                <ul id="competency-scores"></ul>
-            </div>
-            
-            <div class="metrics-section">
-                <h3>Personality Profile (Big Five / OCEAN)</h3>
-                <ul id="ocean-scores"></ul>
-            </div>
-            
-            <p id="pass-fail-status"></p>
+        <div>
+          <h3>Personality (OCEAN)</h3>
+          <ul id="ocean-list"></ul>
         </div>
-    </div>
+      </div>
 
-    <script src="script.js"></script>
+      <p id="pass-fail" class="pass-fail"></p>
+
+      <div class="download-controls">
+        <button id="download-csv">Download CSV</button>
+        <button id="download-json">Download JSON</button>
+        <button id="restart-button" class="secondary">Restart / New Participant</button>
+      </div>
+    </section>
+
+    <footer>
+      <small>Built for Sienva — static site. Optional: enable Firebase in script.js to store results remotely.</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

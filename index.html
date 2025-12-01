@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sienva Executive Aptitude & Leadership Test</title>
+  <title>Sienva — Executive Aptitude & Leadership Test</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="wrap">
     <header>
       <h1>Sienva — Executive Aptitude & Leadership Test</h1>
-      <p>Measures: Logic, Performance, Leadership, Innovation + Big Five personality</p>
+      <p>Measures: Executive Logic, Leadership Decision-Making, Innovation & Problem Solving, Performance Orientation, Communication & Executive Influence + OCEAN personality</p>
     </header>
 
     <section id="login-section" class="card">
-      <h2>Enter participant details</h2>
+      <h2>Participant details</h2>
       <label>
         Full name
         <input id="username" type="text" placeholder="Jane Doe" />
@@ -36,7 +36,7 @@
 
     <section id="test-section" class="card hidden">
       <div id="progress">Question <span id="q-index">1</span> / <span id="q-total">50</span></div>
-      <h2 id="scenario-title">Scenario title</h2>
+      <h2 id="scenario-title">Scenario</h2>
       <p id="scenario-text">Scenario text</p>
 
       <div id="options-container" class="options"></div>
@@ -49,24 +49,50 @@
 
     <section id="results-section" class="card hidden">
       <h2>Results for <span id="res-name"></span></h2>
-      <div id="summary"></div>
 
-      <div class="results-grid">
-        <div>
-          <h3>Competencies</h3>
+      <div id="overview" class="card small">
+        <h3>Overall score</h3>
+        <p id="overall-percent" class="big-percent">--%</p>
+        <p id="overall-meaning" class="muted"></p>
+      </div>
+
+      <div id="insights" class="results-grid">
+        <div class="card small">
+          <h3>Competency breakdown</h3>
           <ul id="competency-list"></ul>
         </div>
 
-        <div>
+        <div class="card small">
           <h3>Personality (OCEAN)</h3>
           <ul id="ocean-list"></ul>
         </div>
       </div>
 
-      <p id="pass-fail" class="pass-fail"></p>
+      <div id="interpretation" class="card">
+        <h3>What this means for you</h3>
+        <div id="strengths"></div>
+        <div id="opportunities"></div>
+        <div id="coaching-note"></div>
+      </div>
+
+      <div id="improvement-plan" class="card">
+        <h3>Personalized improvement plan</h3>
+        <div>
+          <h4>Short-term (2 weeks)</h4>
+          <ul id="plan-short"></ul>
+        </div>
+        <div>
+          <h4>Medium-term (1–3 months)</h4>
+          <ul id="plan-medium"></ul>
+        </div>
+        <div>
+          <h4>Long-term (6–12 months)</h4>
+          <ul id="plan-long"></ul>
+        </div>
+      </div>
 
       <div class="download-controls">
-        <button id="download-csv">Download CSV</button>
+        <button id="download-csv">Download CSV (private: includes pass/fail)</button>
         <button id="download-json">Download JSON</button>
         <button id="restart-button" class="secondary">Restart / New Participant</button>
       </div>

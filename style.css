@@ -17,7 +17,7 @@ body{
 }
 
 .wrap{
-  max-width:920px;
+  max-width:980px;
   margin:28px auto;
   padding:20px;
 }
@@ -28,11 +28,13 @@ p{margin:6px 0 0;color:var(--muted)}
 
 .card{
   background:var(--card);
-  padding:18px;
+  padding:16px;
   border-radius:10px;
   box-shadow:0 6px 18px rgba(24,40,60,.06);
   margin-bottom:16px;
 }
+
+.card.small{padding:12px}
 
 label{display:block;margin:10px 0;font-size:.95rem;color:#222;}
 input[type="text"], input[type="email"], select{
@@ -71,9 +73,12 @@ button.secondary{
 
 .controls{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;}
 .results-grid{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;}
-.results-grid > div{flex:1;min-width:220px}
+.results-grid > div{flex:1;min-width:260px}
 
 ul{padding-left:16px}
+
+.big-percent{font-size:2.2rem;font-weight:700;margin:6px 0;color:var(--accent)}
+.muted{color:var(--muted)}
 
 .pass-fail{font-weight:700;font-size:1.05rem;margin-top:10px;}
 .pass{color:var(--success)}
@@ -81,3 +86,8 @@ ul{padding-left:16px}
 
 .download-controls{display:flex;gap:8px;margin-top:12px;}
 footer{margin-top:12px;color:var(--muted);font-size:.85rem}
+
+/* responsive */
+@media (max-width:720px){
+  .results-grid{flex-direction:column}
+}

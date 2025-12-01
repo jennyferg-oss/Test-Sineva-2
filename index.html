@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sienva — Executive Aptitude & Leadership Test</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- jsPDF for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -59,12 +61,12 @@
       <div id="insights" class="results-grid">
         <div class="card small">
           <h3>Competency breakdown</h3>
-          <ul id="competency-list"></ul>
+          <div id="competency-detailed"></div>
         </div>
 
         <div class="card small">
           <h3>Personality (OCEAN)</h3>
-          <ul id="ocean-list"></ul>
+          <div id="ocean-detailed"></div>
         </div>
       </div>
 
@@ -92,6 +94,7 @@
       </div>
 
       <div class="download-controls">
+        <button id="download-pdf">Download PDF (report)</button>
         <button id="download-csv">Download CSV (private: includes pass/fail)</button>
         <button id="download-json">Download JSON</button>
         <button id="restart-button" class="secondary">Restart / New Participant</button>

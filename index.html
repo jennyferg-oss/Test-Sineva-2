@@ -1,91 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sienva — Executive Assessment</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Executive Aptitude & Leadership Assessment</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <h1>Sienva — Executive Aptitude & Leadership Assessment</h1>
-      <p class="muted">Complete modules in order: A → B → C → D → E. Each module has 10 items and a 7-minute timer.</p>
-    </header>
 
-    <!-- ENTRY -->
-    <section id="entry" class="card">
-      <h2>Participant</h2>
-      <label>Full name
-        <input id="input-name" type="text" placeholder="Jane Doe" />
-      </label>
-      <label>Email
-        <input id="input-email" type="email" placeholder="jane@company.com" />
-      </label>
-      <div class="entry-actions">
-        <button id="btn-open-chooser">Begin / Open Modules</button>
-      </div>
-    </section>
+    <!-- ==========================
+         INTRO PAGE – NAME + EMAIL
+    ============================ -->
+    <div class="screen" id="intro-screen">
+        <div class="card">
+            <h1>Executive Aptitude & Leadership Assessment</h1>
+            <p>Please enter your information to begin.</p>
 
-    <!-- MODULE CHOOSER -->
-    <section id="chooser" class="card hidden">
-      <h2>Choose Module</h2>
-      <p class="muted">Modules unlock in order. Click Start to begin a module.</p>
-      <div id="modules-list" class="modules-grid"></div>
-    </section>
+            <label>Full Name</label>
+            <input type="text" id="candidate-name" placeholder="Enter your name" />
 
-    <!-- MODULE PAGE -->
-    <section id="module-page" class="card hidden">
-      <div class="module-top">
-        <div id="module-title">Module A</div>
-        <div class="timer">Time left: <span id="timer-min">07</span>:<span id="timer-sec">00</span></div>
-      </div>
+            <label>Email Address</label>
+            <input type="email" id="candidate-email" placeholder="Enter your email" />
 
-      <div id="questions-area"></div>
-
-      <div class="controls">
-        <button id="btn-back-chooser" class="secondary">Back to Modules</button>
-        <button id="btn-complete-module">Complete Module</button>
-      </div>
-    </section>
-
-    <!-- RESULTS -->
-    <section id="results" class="card hidden">
-      <h2>Results — <span id="report-name"></span></h2>
-      <div class="overview">
-        <h3>Overall competency score</h3>
-        <div id="overall-percent" class="big-percent">--%</div>
-        <div id="overall-text" class="muted"></div>
-      </div>
-
-      <div class="results-grid">
-        <div class="card small">
-          <h3>Competencies</h3>
-          <div id="competency-output"></div>
+            <button id="start-btn">Start Assessment</button>
         </div>
+    </div>
 
-        <div class="card small">
-          <h3>Personality (Big Five)</h3>
-          <div id="ocean-output"></div>
+
+    <!-- ==========================
+         MODULE SELECTION SCREEN
+    ============================ -->
+    <div class="screen hidden" id="module-screen">
+        <div class="card">
+            <h2>Choose Your Module</h2>
+            <p>You must complete the modules in order. Each module has a time limit.</p>
+
+            <div class="module-list">
+                <button class="module-btn" id="modA-btn" data-module="A">Module A – Logical Reasoning (10 questions – 7 min)</button>
+                <button class="module-btn locked" id="modB-btn" data-module="B">Module B – Executive Scenarios (20 questions – 20 min)</button>
+                <button class="module-btn locked" id="modC-btn" data-module="C">Module C – Personality Assessment (10 questions – 7 min)</button>
+                <button class="module-btn locked" id="modD-btn" data-module="D">Module D – Innovation & Problem Solving (10 questions – 7 min)</button>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="card">
-        <h3>Improvement plan</h3>
-        <div id="improvement-output"></div>
-      </div>
 
-      <div class="download-controls">
-        <button id="btn-download-pdf">Download PDF</button>
-        <button id="btn-download-csv">Download CSV</button>
-        <button id="btn-restart" class="secondary">Restart</button>
-      </div>
-    </section>
+    <!-- ==========================
+         MODULE QUESTION SCREEN
+    ============================ -->
+    <div class="screen hidden" id="question-screen">
+        <div class="card">
 
-    <footer class="muted">Static client-side app — optional: add Google Sheets / Firebase integration.</footer>
-  </div>
+            <div class="timer-box">
+                <span id="timer-label">Time Left:</span>
+                <span id="timer"></span>
+            </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="script.js"></script>
+            <h2 id="module-title"></h2>
+
+            <p id="question-count"></p>
+            <p id="question-text"></p>
+
+            <div id="options-container"></div>
+
+            <button id="next-question-btn" disabled>Next</button>
+        </div>
+    </div>
+
+
+    <!-- ==========================
+         FINAL RESULTS SCREEN
+    ============================ -->
+    <div class="screen hidden" id="results-screen">
+        <div class="card">
+            <h1>Assessment Results</h1>
+
+            <h3>Your Overall Score</h3>
+            <p id="final-percentage" class="big-score"></p>
+            <p id="final-summary"></p>
+
+            <h3>Competency Breakdown</h3>
+            <div id="competency-results"></div>
+
+            <h3>Personality Profile (OCEAN)</h3>
+            <div id="ocean-results"></div>
+
+            <h3>Manager Recommendations</h3>
+            <div id="manager-tips"></div>
+
+            <button id="download-pdf-btn">Download Full PDF Report</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+    <script src="pdf.js"></script>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sienva — Executive Aptitude & Leadership Test</title>
+  <title>Sienva — Executive Assessment</title>
   <link rel="stylesheet" href="style.css" />
   <!-- jsPDF for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -11,99 +11,78 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>Sienva — Executive Aptitude & Leadership Test</h1>
-      <p>Measures: Executive Logic, Leadership Decision-Making, Innovation & Problem Solving, Performance Orientation, Communication & Executive Influence + OCEAN personality</p>
+      <h1>Sienva — Executive Aptitude & Leadership Assessment</h1>
+      <p class="muted">Five modules (A–E). Each module has 10 items. Complete all modules to see results.</p>
     </header>
 
-    <section id="login-section" class="card">
-      <h2>Participant details</h2>
-      <label>
-        Full name
-        <input id="username" type="text" placeholder="Jane Doe" />
+    <!-- PARTICIPANT INFO -->
+    <section id="entry" class="card">
+      <h2>Participant Details</h2>
+      <label>Full name
+        <input id="name" type="text" placeholder="Jane Doe" />
       </label>
-      <label>
-        Email
+      <label>Email
         <input id="email" type="email" placeholder="jane@company.com" />
       </label>
 
-      <label>
-        Choose module
-        <select id="module-select">
-          <option value="Module A">Module A — Executive Aptitude (50 Q)</option>
-        </select>
+      <label>Test time per module (minutes)
+        <input id="time-per-module" type="number" value="3" min="1" />
       </label>
 
-      <button id="start-button">Start Test</button>
+      <button id="btn-start">Start Module A</button>
     </section>
 
-    <section id="test-section" class="card hidden">
-      <div id="progress">Question <span id="q-index">1</span> / <span id="q-total">50</span></div>
-      <h2 id="scenario-title">Scenario</h2>
-      <p id="scenario-text">Scenario text</p>
+    <!-- MODULE PAGE -->
+    <section id="module-page" class="card hidden">
+      <div class="module-header">
+        <div><strong id="module-title">Module A</strong></div>
+        <div id="timer">Time left: <span id="timer-min">00</span>:<span id="timer-sec">00</span></div>
+      </div>
 
-      <div id="options-container" class="options"></div>
+      <div id="questions-container"></div>
 
       <div class="controls">
-        <button id="prev-button" class="secondary">Previous</button>
-        <button id="next-button" disabled>Next</button>
+        <button id="btn-prev" class="secondary">Previous</button>
+        <button id="btn-next" disabled>Next</button>
       </div>
     </section>
 
-    <section id="results-section" class="card hidden">
-      <h2>Results for <span id="res-name"></span></h2>
+    <!-- RESULTS -->
+    <section id="results-page" class="card hidden">
+      <h2>Results for <span id="participant-name"></span></h2>
 
-      <div id="overview" class="card small">
+      <div class="overview card small">
         <h3>Overall score</h3>
-        <p id="overall-percent" class="big-percent">--%</p>
+        <p id="overall-score" class="big-percent">--%</p>
         <p id="overall-meaning" class="muted"></p>
       </div>
 
-      <div id="insights" class="results-grid">
+      <div class="results-grid">
         <div class="card small">
           <h3>Competency breakdown</h3>
-          <div id="competency-detailed"></div>
+          <div id="competency-blocks"></div>
         </div>
 
         <div class="card small">
-          <h3>Personality (OCEAN)</h3>
-          <div id="ocean-detailed"></div>
+          <h3>Personality (Big Five)</h3>
+          <div id="ocean-blocks"></div>
         </div>
       </div>
 
-      <div id="interpretation" class="card">
-        <h3>What this means for you</h3>
-        <div id="strengths"></div>
-        <div id="opportunities"></div>
-        <div id="coaching-note"></div>
-      </div>
-
-      <div id="improvement-plan" class="card">
-        <h3>Personalized improvement plan</h3>
-        <div>
-          <h4>Short-term (2 weeks)</h4>
-          <ul id="plan-short"></ul>
-        </div>
-        <div>
-          <h4>Medium-term (1–3 months)</h4>
-          <ul id="plan-medium"></ul>
-        </div>
-        <div>
-          <h4>Long-term (6–12 months)</h4>
-          <ul id="plan-long"></ul>
-        </div>
+      <div class="card">
+        <h3>Interpretation & Improvement Plan</h3>
+        <div id="interpretation"></div>
       </div>
 
       <div class="download-controls">
-        <button id="download-pdf">Download PDF (report)</button>
-        <button id="download-csv">Download CSV (private: includes pass/fail)</button>
+        <button id="download-pdf">Download PDF</button>
+        <button id="download-csv">Download CSV (admin)</button>
         <button id="download-json">Download JSON</button>
-        <button id="restart-button" class="secondary">Restart / New Participant</button>
+        <button id="btn-restart" class="secondary">Restart / New Participant</button>
       </div>
     </section>
 
-    <footer>
-      <small>Built for Sienva — static site. Optional: enable Firebase in script.js to store results remotely.</small>
-    </footer>
+    <footer><small class="muted">Static site. Optional: wire to Google Sheets or Firebase for server-side storage.</small></footer>
   </div>
 
   <script src="script.js"></script>

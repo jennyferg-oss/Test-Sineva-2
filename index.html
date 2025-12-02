@@ -1,59 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Executive Assessment Test</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competency Test</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <div class="container">
 
-        <h1>Executive Assessment Test</h1>
+  <!-- FORMULARIO INICIAL -->
+  <section id="start-screen" class="screen">
+    <h1>Competency Assessment</h1>
 
-        <!-- ========== MODULE SELECTION PAGE ========== -->
-        <div id="module-page">
-            <h2>Choose Module</h2>
-            <p>You must complete each module in order. Each module contains 10 questions and has a 7-minute time limit.</p>
+    <div class="card">
+      <label>Full Name</label>
+      <input type="text" id="candidateName" placeholder="Enter your name" />
 
-            <div id="module-buttons">
-                <button class="module-button" data-module="0">Module A</button>
-                <button class="module-button" data-module="1">Module B</button>
-                <button class="module-button" data-module="2">Module C</button>
-                <button class="module-button" data-module="3">Module D</button>
-                <button class="module-button" data-module="4">Module E</button>
-            </div>
-        </div>
+      <label>Email</label>
+      <input type="email" id="candidateEmail" placeholder="Enter your email" />
 
-        <!-- ========== TEST PAGE ========== -->
-        <div id="test-page" class="hidden">
-            <div id="timer">Time Left: 07:00</div>
-
-            <div id="question-card">
-                <p id="question-number"></p>
-                <h2 id="question-text"></h2>
-
-                <div id="options-container"></div>
-
-                <button id="next-button" disabled>Next</button>
-            </div>
-        </div>
-
-        <!-- ========== RESULTS PAGE ========== -->
-        <div id="results-page" class="hidden">
-            <h2>Your Results</h2>
-
-            <div id="final-score"></div>
-            <div id="competency-results"></div>
-            <div id="personality-results"></div>
-            <div id="improvement-plan"></div>
-
-            <button id="download-pdf">Download PDF</button>
-        </div>
-
+      <button id="startBtn">Start Test</button>
     </div>
+  </section>
 
-    <script src="script.js"></script>
+  <!-- PANTALLA DE MÓDULOS -->
+  <section id="module-screen" class="screen hidden">
+    <h2>Select Module</h2>
+    <p>You must complete the modules in order.</p>
+
+    <div id="moduleButtons"></div>
+  </section>
+
+  <!-- PREGUNTAS -->
+  <section id="question-screen" class="screen hidden">
+    <h2 id="module-title"></h2>
+
+    <div id="timer">07:00</div>
+
+    <form id="questionForm"></form>
+
+    <button id="nextModuleBtn" class="hidden">Next Module</button>
+  </section>
+
+  <!-- RESULTADOS -->
+  <section id="result-screen" class="screen hidden">
+    <h2>Final Results</h2>
+    <p id="resultName"></p>
+    <p id="resultEmail"></p>
+
+    <div id="competencyResult"></div>
+    <div id="personalityResult"></div>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>

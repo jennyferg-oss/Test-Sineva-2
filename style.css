@@ -24,7 +24,7 @@ body{
 
 header{margin-bottom:18px;}
 h1{margin:0;font-size:1.6rem;color:var(--accent)}
-p{margin:6px 0 0;color:var(--muted)}
+.muted{color:var(--muted);font-size:0.95rem}
 
 .card{
   background:var(--card);
@@ -37,7 +37,7 @@ p{margin:6px 0 0;color:var(--muted)}
 .card.small{padding:12px}
 
 label{display:block;margin:10px 0;font-size:.95rem;color:#222;}
-input[type="text"], input[type="email"], select{
+input[type="text"], input[type="email"], input[type="number"], select, textarea{
   width:100%;
   padding:10px;
   border-radius:8px;
@@ -61,25 +61,26 @@ button.secondary{
 
 .hidden{display:none;}
 
-#progress{font-size:.95rem;color:var(--muted);margin-bottom:8px;}
-#scenario-title{margin:6px 0 8px;font-size:1.05rem}
-#scenario-text{margin:0 0 12px;color:#222;}
-
-.options{display:flex;flex-direction:column;gap:10px;margin:12px 0;}
-.option{
-  border:1px solid #e3e8ef;padding:12px;border-radius:10px;cursor:pointer;background:#fafbff;
+.module-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
 }
-.option.selected{outline:3px solid rgba(11,105,230,.12);background:#eef6ff;}
+
+#questions-container{margin-top:6px;}
+.question-card{
+  border:1px solid #eef3fb;padding:12px;border-radius:8px;margin-bottom:10px;background:#fbfdff;
+}
+.q-title{font-weight:600;margin-bottom:8px}
+.option-row{display:flex;gap:8px;align-items:center;margin-top:6px}
+.option-row label{flex:1;margin:0}
 
 .controls{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;}
 .results-grid{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;}
 .results-grid > div{flex:1;min-width:260px}
 
-ul{padding-left:16px}
-
 .big-percent{font-size:2.2rem;font-weight:700;margin:6px 0;color:var(--accent)}
-.muted{color:var(--muted)}
-
 .pass-fail{font-weight:700;font-size:1.05rem;margin-top:10px;}
 .pass{color:var(--success)}
 .fail{color:var(--danger)}
@@ -87,8 +88,7 @@ ul{padding-left:16px}
 .download-controls{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
 footer{margin-top:12px;color:var(--muted);font-size:.85rem}
 
-/* detailed blocks */
-.detailed-block{margin-bottom:12px;padding:10px;border-radius:8px;border:1px solid #eef3fb;background:#fbfdff;}
+.detailed-block{margin-bottom:12px;padding:10px;border-radius:8px;border:1px solid #eef3fb;background:#fff}
 .detailed-header{font-weight:700;margin-bottom:6px;color:var(--accent)}
 .detailed-sub{font-size:.95rem;color:var(--muted);margin-bottom:8px}
 

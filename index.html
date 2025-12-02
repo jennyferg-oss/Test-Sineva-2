@@ -1,88 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sienva — Executive Assessment</title>
+  <title>Sienva — Executive Assessment (Modules)</title>
   <link rel="stylesheet" href="style.css" />
   <!-- jsPDF for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <div class="wrap">
+  <div class="container">
     <header>
       <h1>Sienva — Executive Aptitude & Leadership Assessment</h1>
-      <p class="muted">Five modules (A–E). Each module has 10 items. Complete all modules to see results.</p>
+      <p class="muted">Complete the modules in order A → B → C → D → E. Each module has 10 items and a 7-minute timer. Results are shown after finishing Module E.</p>
     </header>
 
-    <!-- PARTICIPANT INFO -->
+    <!-- Participant entry -->
     <section id="entry" class="card">
-      <h2>Participant Details</h2>
+      <h2>Participant</h2>
       <label>Full name
-        <input id="name" type="text" placeholder="Jane Doe" />
+        <input id="participant-name-input" type="text" placeholder="Jane Doe" />
       </label>
       <label>Email
-        <input id="email" type="email" placeholder="jane@company.com" />
+        <input id="participant-email-input" type="email" placeholder="jane@company.com" />
       </label>
-
-      <label>Test time per module (minutes)
-        <input id="time-per-module" type="number" value="3" min="1" />
-      </label>
-
-      <button id="btn-start">Start Module A</button>
+      <div class="entry-actions">
+        <button id="btn-begin">Begin (open module chooser)</button>
+      </div>
     </section>
 
-    <!-- MODULE PAGE -->
+    <!-- Module chooser -->
+    <section id="module-chooser" class="card hidden">
+      <h2>Choose Module</h2>
+      <p class="muted">Follow the order. Each module locks until the previous is completed.</p>
+      <div id="modules-list" class="modules-grid">
+        <!-- Buttons inserted dynamically -->
+      </div>
+    </section>
+
+    <!-- Module page -->
     <section id="module-page" class="card hidden">
-      <div class="module-header">
-        <div><strong id="module-title">Module A</strong></div>
-        <div id="timer">Time left: <span id="timer-min">00</span>:<span id="timer-sec">00</span></div>
+      <div class="module-top">
+        <div class="module-title"><strong id="module-title">Module A</strong></div>
+        <div class="timer">Time left: <span id="timer-min">07</span>:<span id="timer-sec">00</span></div>
       </div>
 
-      <div id="questions-container"></div>
+      <div id="module-questions"></div>
 
       <div class="controls">
-        <button id="btn-prev" class="secondary">Previous</button>
-        <button id="btn-next" disabled>Next</button>
+        <button id="btn-module-prev" class="secondary">Back to Modules</button>
+        <button id="btn-module-complete">Complete Module</button>
       </div>
     </section>
 
-    <!-- RESULTS -->
+    <!-- Results page -->
     <section id="results-page" class="card hidden">
-      <h2>Results for <span id="participant-name"></span></h2>
+      <h2>Report — <span id="report-name"></span></h2>
 
       <div class="overview card small">
-        <h3>Overall score</h3>
-        <p id="overall-score" class="big-percent">--%</p>
+        <h3>Overall competency score</h3>
+        <p id="overall-percent" class="big-percent">--%</p>
         <p id="overall-meaning" class="muted"></p>
       </div>
 
       <div class="results-grid">
         <div class="card small">
-          <h3>Competency breakdown</h3>
-          <div id="competency-blocks"></div>
+          <h3>Competencies</h3>
+          <div id="competency-results"></div>
         </div>
 
         <div class="card small">
           <h3>Personality (Big Five)</h3>
-          <div id="ocean-blocks"></div>
+          <div id="ocean-results"></div>
         </div>
       </div>
 
       <div class="card">
-        <h3>Interpretation & Improvement Plan</h3>
-        <div id="interpretation"></div>
+        <h3>Interpretation & Development Plan</h3>
+        <div id="interpretation-block"></div>
       </div>
 
       <div class="download-controls">
-        <button id="download-pdf">Download PDF</button>
-        <button id="download-csv">Download CSV (admin)</button>
-        <button id="download-json">Download JSON</button>
+        <button id="btn-download-pdf">Download PDF</button>
+        <button id="btn-download-csv">Download CSV (admin)</button>
+        <button id="btn-download-json">Download JSON</button>
         <button id="btn-restart" class="secondary">Restart / New Participant</button>
       </div>
     </section>
 
-    <footer><small class="muted">Static site. Optional: wire to Google Sheets or Firebase for server-side storage.</small></footer>
+    <footer class="muted">Minimalist professional design • Static client-side app • Optional integrations available.</footer>
   </div>
 
   <script src="script.js"></script>

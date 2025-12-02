@@ -1,57 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Competency Test</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sienva — Executive Assessment</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <h1>Sienva — Executive Aptitude & Leadership Assessment</h1>
+      <p class="muted">Complete modules in order: A → B → C → D → E. Each module has 10 items and a 7-minute timer.</p>
+    </header>
 
-  <!-- FORMULARIO INICIAL -->
-  <section id="start-screen" class="screen">
-    <h1>Competency Assessment</h1>
+    <!-- ENTRY -->
+    <section id="entry" class="card">
+      <h2>Participant</h2>
+      <label>Full name
+        <input id="input-name" type="text" placeholder="Jane Doe" />
+      </label>
+      <label>Email
+        <input id="input-email" type="email" placeholder="jane@company.com" />
+      </label>
+      <div class="entry-actions">
+        <button id="btn-open-chooser">Begin / Open Modules</button>
+      </div>
+    </section>
 
-    <div class="card">
-      <label>Full Name</label>
-      <input type="text" id="candidateName" placeholder="Enter your name" />
+    <!-- MODULE CHOOSER -->
+    <section id="chooser" class="card hidden">
+      <h2>Choose Module</h2>
+      <p class="muted">Modules unlock in order. Click Start to begin a module.</p>
+      <div id="modules-list" class="modules-grid"></div>
+    </section>
 
-      <label>Email</label>
-      <input type="email" id="candidateEmail" placeholder="Enter your email" />
+    <!-- MODULE PAGE -->
+    <section id="module-page" class="card hidden">
+      <div class="module-top">
+        <div id="module-title">Module A</div>
+        <div class="timer">Time left: <span id="timer-min">07</span>:<span id="timer-sec">00</span></div>
+      </div>
 
-      <button id="startBtn">Start Test</button>
-    </div>
-  </section>
+      <div id="questions-area"></div>
 
-  <!-- PANTALLA DE MÓDULOS -->
-  <section id="module-screen" class="screen hidden">
-    <h2>Select Module</h2>
-    <p>You must complete the modules in order.</p>
+      <div class="controls">
+        <button id="btn-back-chooser" class="secondary">Back to Modules</button>
+        <button id="btn-complete-module">Complete Module</button>
+      </div>
+    </section>
 
-    <div id="moduleButtons"></div>
-  </section>
+    <!-- RESULTS -->
+    <section id="results" class="card hidden">
+      <h2>Results — <span id="report-name"></span></h2>
+      <div class="overview">
+        <h3>Overall competency score</h3>
+        <div id="overall-percent" class="big-percent">--%</div>
+        <div id="overall-text" class="muted"></div>
+      </div>
 
-  <!-- PREGUNTAS -->
-  <section id="question-screen" class="screen hidden">
-    <h2 id="module-title"></h2>
+      <div class="results-grid">
+        <div class="card small">
+          <h3>Competencies</h3>
+          <div id="competency-output"></div>
+        </div>
 
-    <div id="timer">07:00</div>
+        <div class="card small">
+          <h3>Personality (Big Five)</h3>
+          <div id="ocean-output"></div>
+        </div>
+      </div>
 
-    <form id="questionForm"></form>
+      <div class="card">
+        <h3>Improvement plan</h3>
+        <div id="improvement-output"></div>
+      </div>
 
-    <button id="nextModuleBtn" class="hidden">Next Module</button>
-  </section>
+      <div class="download-controls">
+        <button id="btn-download-pdf">Download PDF</button>
+        <button id="btn-download-csv">Download CSV</button>
+        <button id="btn-restart" class="secondary">Restart</button>
+      </div>
+    </section>
 
-  <!-- RESULTADOS -->
-  <section id="result-screen" class="screen hidden">
-    <h2>Final Results</h2>
-    <p id="resultName"></p>
-    <p id="resultEmail"></p>
+    <footer class="muted">Static client-side app — optional: add Google Sheets / Firebase integration.</footer>
+  </div>
 
-    <div id="competencyResult"></div>
-    <div id="personalityResult"></div>
-  </section>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

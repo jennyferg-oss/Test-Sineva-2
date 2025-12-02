@@ -1,50 +1,132 @@
-:root{
-  --bg:#f3f6fb;
-  --card:#ffffff;
-  --accent:#0b66d0;
-  --muted:#6b7280;
-  --btn:#0b66d0;
-  --success:#0b9a5a;
-  --danger:#dc2626;
-  --shadow:0 6px 20px rgba(12,30,54,0.06);
+// ===== MODULE STRUCTURE =====
+
+// Temporary test module questions to confirm the flow works
+const modules = [
+    { name: "Module A", questions: ["A1?", "A2?", "A3?", "A4?", "A5?", "A6?", "A7?", "A8?", "A9?", "A10?"] },
+    { name: "Module B", questions: ["B1?", "B2?", "B3?", "B4?", "B5?", "B6?", "B7?", "B8?", "B9?", "B10?"] },
+    { name: "Module C", questions: ["C1?", "C2?", "C3?", "C4?", "C5?", "C6?", "C7?", "C8?", "C9?", "C10?"] },
+    { name: "Module D", questions: ["D1?", "D2?", "D3?", "D4?", "D5?", "D6?", "D7?", "D8?", "D9?", "D10?"] },
+    { name: "Module E", questions: ["E1?", "E2?", "E3?", "E4?", "E5?", "E6?", "E7?", "E8?", "E9?", "E10?"] }
+];
+
+// ===== DOM ELEMENTS =====
+const modulePage = document.getElementById("module-page");
+const testPage = document.getElementById("test-page");
+const resultsPage = document.getElementById("results-page");
+
+const questionText = document.getElementById("question-text");
+const questionNumber = document.getElementById("question-number");
+const optionsContainer = document.getElementById("options-container");
+const nextButton = document.getElementById("next-button");
+const timerDisplay = document.getElementById("timer");
+
+let currentModule = 0;
+let currentQuestion = 0;
+let timer;
+let timeLeft = 420; // 7 minutes in seconds
+
+// ===== MODULE CLICK =====
+document.querySelectorAll(".module-button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const moduleIndex = parseInt(btn.dataset.module);
+
+        // enforce correct order
+        if (moduleIndex !== currentModule) {
+            alert("You must complete the modules in order.");
+            return;
+        }
+
+        startModule(moduleIndex);
+    });
+});
+
+// ===== START MODULE =====
+function startModule(index) {
+    modulePage.classList.add("hidden");
+    testPage.classList.remove("hidden");
+
+    currentModule = index;
+    currentQuestion = 0;
+
+    startTimer();
+    loadQuestion();
 }
-*{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial;}
-body{margin:0;background:var(--bg);color:#0f172a}
-.wrap{max-width:980px;margin:28px auto;padding:18px}
-header h1{margin:0;font-size:1.4rem;color:var(--accent)}
-.muted{color:var(--muted);font-size:.95rem;margin-top:6px}
 
-.card{background:var(--card);padding:16px;border-radius:10px;box-shadow:var(--shadow);margin-top:16px}
-.card.small{padding:12px}
-input[type="text"], input[type="email"]{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8;margin-top:8px}
-.entry-actions{margin-top:12px}
-button{background:var(--btn);color:#fff;border:0;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:600}
-button.secondary{background:#eef3fb;color:var(--btn);padding:9px 12px;border-radius:8px}
+// ===== TIMER =====
+function startTimer() {
+    timeLeft = 420;
+    timerDisplay.textContent = "Time Left: 07:00";
 
-.hidden{display:none}
+    timer = setInterval(() => {
+        timeLeft--;
 
-.modules-grid{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
-.module-card{flex:1 1 220px;min-width:220px;background:#fff;border-radius:8px;padding:12px;border:1px solid #e6f0fb}
-.module-card.locked{opacity:.56;filter:grayscale(10%)}
-.module-card h4{margin:0 0 6px 0}
-.module-card p{margin:0;color:var(--muted)}
-.module-card .action{margin-top:8px}
+        let min = Math.floor(timeLeft / 60);
+        let sec = timeLeft % 60;
+        if (sec < 10) sec = "0" + sec;
 
-.module-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.timer{font-weight:700;color:var(--danger)}
-#questions-area{margin-top:8px}
-.question-card{border:1px solid #eef6ff;padding:12px;border-radius:8px;margin-bottom:10px;background:#fbfdff}
-.q-title{font-weight:700;margin-bottom:6px}
-.options-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-.options-row label{display:flex;align-items:center;gap:8px;border:1px solid transparent;padding:8px;border-radius:6px;cursor:pointer}
-.options-row input[type="radio"]{transform:scale(1.02)}
+        timerDisplay.textContent = `Time Left: ${min}:${sec}`;
 
-.controls{display:flex;justify-content:space-between;gap:12px;margin-top:12px}
-.results-grid{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
-.results-grid>div{flex:1;min-width:260px}
-.big-percent{font-size:2rem;font-weight:700;color:var(--accent);margin:8px 0}
-.detailed-block{margin-bottom:8px;padding:10px;border-radius:8px;border:1px solid #eef6ff;background:#fff}
-.detailed-header{font-weight:700;color:var(--accent);margin-bottom:6px}
-.detailed-sub{color:var(--muted);margin-bottom:8px;font-size:.95rem}
-.download-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-footer{margin-top:18px;color:var(--muted);font-size:.9rem}
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            nextModule();
+        }
+    }, 1000);
+}
+
+// ===== LOAD QUESTION =====
+function loadQuestion() {
+    const m = modules[currentModule];
+    const q = m.questions[currentQuestion];
+
+    questionText.textContent = q;
+    questionNumber.textContent = `Question ${currentQuestion + 1} of 10`;
+
+    optionsContainer.innerHTML = "";
+    nextButton.disabled = true;
+
+    ["Option 1", "Option 2", "Option 3", "Option 4"].forEach(opt => {
+        const div = document.createElement("div");
+        div.classList.add("option");
+        div.textContent = opt;
+        div.onclick = () => {
+            document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+            div.classList.add("selected");
+            nextButton.disabled = false;
+        };
+        optionsContainer.appendChild(div);
+    });
+}
+
+// ===== NEXT QUESTION =====
+nextButton.addEventListener("click", () => {
+    currentQuestion++;
+
+    if (currentQuestion >= 10) {
+        nextModule();
+    } else {
+        loadQuestion();
+    }
+});
+
+// ===== MOVE TO NEXT MODULE =====
+function nextModule() {
+    clearInterval(timer);
+
+    currentModule++;
+
+    if (currentModule >= modules.length) {
+        showResults();
+    } else {
+        modulePage.classList.remove("hidden");
+        testPage.classList.add("hidden");
+    }
+}
+
+// ===== RESULTS =====
+function showResults() {
+    testPage.classList.add("hidden");
+    resultsPage.classList.remove("hidden");
+
+    document.getElementById("final-score").innerHTML =
+        `<h3>Test Completed</h3><p>Your full scoring will appear here after final integration.</p>`;
+}

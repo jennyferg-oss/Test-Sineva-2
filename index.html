@@ -1,96 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sienva — Executive Assessment (Modules)</title>
-  <link rel="stylesheet" href="style.css" />
-  <!-- jsPDF for PDF generation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Executive Aptitude Test</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Sienva — Executive Aptitude & Leadership Assessment</h1>
-      <p class="muted">Complete the modules in order A → B → C → D → E. Each module has 10 items and a 7-minute timer. Results are shown after finishing Module E.</p>
-    </header>
 
-    <!-- Participant entry -->
-    <section id="entry" class="card">
-      <h2>Participant</h2>
-      <label>Full name
-        <input id="participant-name-input" type="text" placeholder="Jane Doe" />
-      </label>
-      <label>Email
-        <input id="participant-email-input" type="email" placeholder="jane@company.com" />
-      </label>
-      <div class="entry-actions">
-        <button id="btn-begin">Begin (open module chooser)</button>
-      </div>
-    </section>
+    <div class="container">
 
-    <!-- Module chooser -->
-    <section id="module-chooser" class="card hidden">
-      <h2>Choose Module</h2>
-      <p class="muted">Follow the order. Each module locks until the previous is completed.</p>
-      <div id="modules-list" class="modules-grid">
-        <!-- Buttons inserted dynamically -->
-      </div>
-    </section>
+        <h1>Executive Aptitude & Leadership Assessment</h1>
 
-    <!-- Module page -->
-    <section id="module-page" class="card hidden">
-      <div class="module-top">
-        <div class="module-title"><strong id="module-title">Module A</strong></div>
-        <div class="timer">Time left: <span id="timer-min">07</span>:<span id="timer-sec">00</span></div>
-      </div>
+        <!-- ================= MODULE SELECTION ================= -->
+        <div id="module-selection">
+            <h2>Select Module</h2>
+            <p>You must complete modules in order (A → B → C → D)</p>
 
-      <div id="module-questions"></div>
-
-      <div class="controls">
-        <button id="btn-module-prev" class="secondary">Back to Modules</button>
-        <button id="btn-module-complete">Complete Module</button>
-      </div>
-    </section>
-
-    <!-- Results page -->
-    <section id="results-page" class="card hidden">
-      <h2>Report — <span id="report-name"></span></h2>
-
-      <div class="overview card small">
-        <h3>Overall competency score</h3>
-        <p id="overall-percent" class="big-percent">--%</p>
-        <p id="overall-meaning" class="muted"></p>
-      </div>
-
-      <div class="results-grid">
-        <div class="card small">
-          <h3>Competencies</h3>
-          <div id="competency-results"></div>
+            <button class="module-btn" onclick="startModule(0)">Module A — Logic</button>
+            <button class="module-btn locked" id="m2">Module B — Leadership</button>
+            <button class="module-btn locked" id="m3">Module C — Innovation</button>
+            <button class="module-btn locked" id="m4">Module D — Executive Presence</button>
         </div>
 
-        <div class="card small">
-          <h3>Personality (Big Five)</h3>
-          <div id="ocean-results"></div>
+        <!-- ================= TEST INTERFACE ================= -->
+        <div id="test-container" class="hidden">
+            <div id="timer">07:00</div>
+
+            <h2 id="module-title"></h2>
+
+            <p id="question-number"></p>
+            <p id="question-text"></p>
+
+            <div id="options-container"></div>
+
+            <button id="next-btn" onclick="nextQuestion()" disabled>Next</button>
         </div>
-      </div>
 
-      <div class="card">
-        <h3>Interpretation & Development Plan</h3>
-        <div id="interpretation-block"></div>
-      </div>
+        <!-- ================= RESULTS PAGE ================= -->
+        <div id="results-container" class="hidden">
+            <h2>Your Assessment Results</h2>
 
-      <div class="download-controls">
-        <button id="btn-download-pdf">Download PDF</button>
-        <button id="btn-download-csv">Download CSV (admin)</button>
-        <button id="btn-download-json">Download JSON</button>
-        <button id="btn-restart" class="secondary">Restart / New Participant</button>
-      </div>
-    </section>
+            <div id="score-summary"></div>
 
-    <footer class="muted">Minimalist professional design • Static client-side app • Optional integrations available.</footer>
-  </div>
+            <h3>Competency Scores</h3>
+            <div id="competency-results"></div>
 
-  <script src="script.js"></script>
+            <h3>Personality Profile (OCEAN)</h3>
+            <div id="personality-results"></div>
+
+            <h3>Personal Improvement Plan</h3>
+            <div id="improvement-plan"></div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,60 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Competency & Personality Assessment</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="page">
-      <header class="hero">
-        <div class="hero__left">
-          <p class="eyebrow">Built for GitHub Pages</p>
-          <h1>Competency & Big Five assessment (50 questions)</h1>
-          <p class="lead">
-            Five guided modules with a global timer, interactive navigation, and clear percentage results for
-            innovation, leadership, adaptability, communication, work style, and Big Five personality traits.
-          </p>
-          <ul class="bullets">
-            <li>Module-by-module flow with locked progression</li>
-            <li>Likert scales and realistic decision scenarios</li>
-            <li>Readable results with descriptions and progress bars</li>
-          </ul>
-        </div>
-        <div class="hero__card">
-          <form id="start-form">
-            <div class="field">
-              <label for="nombre">Name</label>
-              <input id="nombre" name="nombre" type="text" required />
-            </div>
-            <div class="field">
-              <label for="cargo">Role you're applying for</label>
-              <input id="cargo" name="cargo" type="text" required />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
-            <p class="helper">
-              The 20-minute timer starts when you press “Start”. If you leave the page, you'll need to restart.
-            </p>
-            <button class="primary" type="submit">Start assessment</button>
-          </form>
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sineva Competency & Personality Assessment</title>
 
-      <section id="status-panel" class="status"></section>
-      <section id="module-panel" class="module"></section>
-      <section id="results-panel" class="results hidden"></section>
+  <!-- ✅ IMPORTANT: file name MUST be exactly styles.css -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="bg-orbs"></div>
+
+  <main class="app">
+
+    <!-- HEADER -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1>Sineva Assessment</h1>
+          <p>Competencies + Big Five Personality</p>
+        </div>
+      </div>
+      <div class="timer hidden" id="timerWrap">
+        <span class="timer-label">Elapsed</span>
+        <span class="timer-value" id="timer">00:00</span>
+      </div>
+    </header>
+
+    <!-- START SCREEN -->
+    <section id="startScreen" class="card screen active">
+      <h2>Welcome!</h2>
+      <p class="muted">
+        Please complete this assessment in one sitting.  
+        Your results help us understand your strengths, working style, and role alignment.
+      </p>
+
+      <form id="candidateForm" class="form-grid">
+        <label>
+          Full name
+          <input required type="text" id="fullName" placeholder="e.g., Alex Johnson"/>
+        </label>
+        <label>
+          Role you are applying for
+          <input required type="text" id="role" placeholder="e.g., Sales Manager"/>
+        </label>
+        <label>
+          Email
+          <input required type="email" id="email" placeholder="e.g., alex@email.com"/>
+        </label>
+
+        <label class="checkbox">
+          <input required type="checkbox" id="consent"/>
+          <span>I understand that leaving this page will restart the test.</span>
+        </label>
+      </form>
+
+      <div class="actions">
+        <button id="startBtn" class="btn primary">Start Assessment</button>
+        <button id="previewBtn" class="btn ghost">Preview Modules</button>
+      </div>
+
+      <div id="modulesPreview" class="preview hidden"></div>
+    </section>
+
+    <!-- TEST SCREEN -->
+    <section id="testScreen" class="screen hidden">
+      <div class="card">
+        <div class="test-header">
+          <div>
+            <h2 id="moduleTitle"></h2>
+            <p id="moduleDesc" class="muted"></p>
+          </div>
+
+          <div class="progress">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <span id="progressText" class="progress-text">0/50</span>
+          </div>
+        </div>
+
+        <div id="questionWrap" class="question-wrap"></div>
+
+        <div class="nav">
+          <button id="prevBtn" class="btn ghost">Back</button>
+          <button id="nextBtn" class="btn primary">Next</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section id="resultsScreen" class="screen hidden">
+      <div class="card">
+        <div class="results-header">
+          <div>
+            <h2>Results</h2>
+            <p class="muted" id="candidateSummary"></p>
+          </div>
+          <div class="actions">
+            <button id="downloadHtmlBtn" class="btn primary">Download Results</button>
+            <button id="downloadJsonBtn" class="btn ghost">Download JSON</button>
+            <button id="restartBtn" class="btn danger">Restart</button>
+          </div>
+        </div>
+
+        <h3>Competencies (100% = ideal benchmark)</h3>
+        <div id="competencyResults" class="results-grid"></div>
+
+        <h3>Big Five Personality (expression level, not “good or bad”)</h3>
+        <div id="personalityResults" class="results-grid"></div>
+
+        <div class="note">
+          <strong>Note:</strong> High or low personality scores are not automatically positive or negative.
+          We interpret them as style indicators that help match you to the role and team.
+        </div>
+      </div>
+    </section>
+
+    <!-- LEAVE PAGE MODAL -->
+    <div id="resetModal" class="modal hidden">
+      <div class="modal-card">
+        <h3>Test Restarted</h3>
+        <p>
+          You left the page or switched tabs.  
+          As stated, the assessment must restart to keep results fair.
+        </p>
+        <button id="modalOkBtn" class="btn primary">OK</button>
+      </div>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+    <footer class="footer muted">
+      © Sineva Group — Internal Recruitment Assessment
+    </footer>
+  </main>
+
+  <!-- ✅ IMPORTANT: file name MUST be exactly script.js -->
+  <script src="script.js"></script>
+</body>
 </html>

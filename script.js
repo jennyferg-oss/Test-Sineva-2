@@ -92,7 +92,6 @@ const MODULES = [
   }
 ];
 
-// Big Five labels
 const BIG5 = {
   O: "Openness",
   C: "Conscientiousness",
@@ -101,7 +100,6 @@ const BIG5 = {
   N: "Emotional Stability (low Neuroticism)"
 };
 
-// Explanations
 const COMP_EXPLAIN = {
   innovation:
     "Innovation measures how you explore new ideas, challenge norms, and turn uncertainty into value. High scores suggest you actively seek improvements and creative paths. Lower scores indicate a preference for proven methods and stability.",
@@ -161,10 +159,9 @@ const personalityResults = document.getElementById("personalityResults");
 
 let flatQuestions = [];
 let currentIndex = 0;
-let answers = {}; // {qIndex: 0..4}
+let answers = {};
 let candidate = null;
 
-// Timer
 let startTime = null;
 let timerInterval = null;
 
@@ -187,6 +184,7 @@ function buildFlatQuestions(){
 }
 buildFlatQuestions();
 
+/* ✅ show screens using only .hidden */
 function showScreen(screen){
   [startScreen, testScreen, resultsScreen].forEach(s => s.classList.add("hidden"));
   screen.classList.remove("hidden");
@@ -261,9 +259,7 @@ function hardResetDueToLeave(){
 }
 
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden && startTime) {
-    hardResetDueToLeave();
-  }
+  if (document.hidden && startTime) hardResetDueToLeave();
 });
 window.addEventListener("blur", () => {
   if (startTime) hardResetDueToLeave();
@@ -312,7 +308,6 @@ function renderQuestion(){
     </div>
   `;
 
-  // attach events
   document.querySelectorAll(".scale button").forEach(btn => {
     btn.addEventListener("click", () => {
       const val = Number(btn.dataset.score);
@@ -323,7 +318,6 @@ function renderQuestion(){
     });
   });
 
-  // nav state
   prevBtn.disabled = currentIndex === 0;
   nextBtn.textContent = currentIndex === flatQuestions.length - 1 ? "Finish" : "Next";
 
@@ -369,12 +363,11 @@ function finishTest(){
   stopTimer();
   const elapsed = formatTime(Date.now() - startTime);
 
-  // competency buckets
   const compScores = {innovation: [], leadership: [], adaptability: [], communication: [], workstyle: []};
   const bigScores = {O: [], C: [], E: [], A: [], N: []};
 
   flatQuestions.forEach((q, idx) => {
-    let raw = answers[idx]; // 0..4
+    let raw = answers[idx];
     if (q.reverse) raw = 4 - raw;
 
     compScores[q.competency].push(raw);
@@ -386,16 +379,14 @@ function finishTest(){
 
   const compPct = {};
   for (const k in compScores){
-    compPct[k] = average(compScores[k]) / 4 * 100; // normalize to 100
+    compPct[k] = average(compScores[k]) / 4 * 100;
   }
 
   const bigPct = {};
   for (const t in bigScores){
-    if (bigScores[t].length === 0) bigPct[t] = null;
-    else bigPct[t] = average(bigScores[t]) / 4 * 100;
+    bigPct[t] = bigScores[t].length ? average(bigScores[t]) / 4 * 100 : null;
   }
 
-  // Render results
   candidateSummary.textContent =
     `${candidate.fullName} · Applying for: ${candidate.role} · ${candidate.email} · Time: ${elapsed}`;
 
@@ -407,7 +398,6 @@ function finishTest(){
     resultCard(BIG5[t], bigPct[t], BIG5_EXPLAIN[t], true)
   ).join("");
 
-  // Save latest results for download
   const resultPayload = {
     candidate,
     elapsed,
@@ -555,9 +545,4 @@ function buildPrintableHtml(data){
 </html>`;
 }
 
-/* =========================
-   RESTART
-   ========================= */
-restartBtn.addEventListener("click", () => {
-  location.reload();
-});
+restartBtn.addEventListener("click", () => location.reload());

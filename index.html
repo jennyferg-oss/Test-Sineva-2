@@ -1,62 +1,130 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assessment de Competencias y Personalidad</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="page">
-      <header class="hero">
-        <div class="hero__left">
-          <p class="eyebrow">Assessment listo para GitHub Pages</p>
-          <h1>Test de competencias y Big Five (50 preguntas)</h1>
-          <p class="lead">
-            Cinco módulos interactivos con cronómetro global, navegación guiada y
-            resultados en porcentaje para innovación, liderazgo, adaptación,
-            comunicación, estilo de trabajo y personalidad Big Five.
-          </p>
-          <ul class="bullets">
-            <li>Bloquea avance hasta completar cada módulo</li>
-            <li>Escala likert y escenarios realistas</li>
-            <li>Resultados claros con descripciones y barras</li>
-          </ul>
-        </div>
-        <div class="hero__card">
-          <form id="start-form">
-            <div class="field">
-              <label for="nombre">Nombre</label>
-              <input id="nombre" name="nombre" type="text" required />
-            </div>
-            <div class="field">
-              <label for="cargo">Cargo al que aplica</label>
-              <input id="cargo" name="cargo" type="text" required />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" required />
-            </div>
-            <p class="helper">
-              El cronómetro (20 minutos) inicia al presionar “Comenzar”. Si sales
-              de la página, deberás reiniciar.
-            </p>
-            <button class="primary" type="submit">Comenzar evaluación</button>
-          </form>
-        </div>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sineva | Competencias & Personalidad (50Q)</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
 
-      <section id="status-panel" class="status"></section>
-      <section id="module-panel" class="module"></section>
-      <section id="results-panel" class="results hidden"></section>
+  <main class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-dot"></div>
+        <div>
+          <h1>Competencies & Personality Assessment</h1>
+          <p class="sub">50 questions · 5 modules · Big Five included</p>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button id="langToggle" class="ghost-btn" aria-label="Toggle language">
+          ES / EN
+        </button>
+        <div class="timer">
+          <span class="timer-label" id="timerLabel">Tiempo total</span>
+          <span class="timer-time" id="timer">00:00</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Start Screen -->
+    <section id="startScreen" class="card">
+      <h2 id="startTitle">Antes de empezar</h2>
+      <p id="startDesc">
+        Este test mide competencias clave y personalidad. 
+        Si sales de la pestaña o cambias de aplicación, el test se reinicia.
+      </p>
+
+      <form id="startForm" class="form">
+        <div class="field">
+          <label id="nameLabel" for="fullName">Nombre completo</label>
+          <input id="fullName" type="text" required placeholder="Tu nombre"/>
+        </div>
+        <div class="field">
+          <label id="roleLabel" for="roleApplied">Cargo al que aplica</label>
+          <input id="roleApplied" type="text" required placeholder="Ej: Sales Manager"/>
+        </div>
+        <div class="field">
+          <label id="emailLabel" for="email">Email</label>
+          <input id="email" type="email" required placeholder="tu@email.com"/>
+        </div>
+
+        <div class="start-actions">
+          <div class="pill" id="questionsCount">50 preguntas</div>
+          <button class="primary-btn" type="submit" id="startBtn">
+            Iniciar test
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Test Screen -->
+    <section id="testScreen" class="hidden">
+      <div class="card module-header">
+        <div class="module-meta">
+          <h2 id="moduleTitle">Módulo 1</h2>
+          <p id="moduleDesc">Innovación</p>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-text">
+            <span id="moduleProgressText">0/10</span>
+            <span id="overallProgressText">0/50</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="questionCard" class="card question-card">
+        <!-- Question injected by JS -->
+      </div>
+
+      <div class="nav-actions">
+        <button id="prevBtn" class="ghost-btn">← Anterior</button>
+        <button id="nextBtn" class="primary-btn">Siguiente →</button>
+      </div>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="resultsScreen" class="hidden">
+      <div class="card results-card">
+        <div class="results-header">
+          <h2 id="resultsTitle">Resultados</h2>
+          <p id="resultsSub"></p>
+        </div>
+
+        <div id="competencyResults" class="results-grid"></div>
+        <hr class="soft"/>
+
+        <h3 id="bigFiveTitle">Big Five de personalidad</h3>
+        <div id="bigFiveResults" class="results-grid"></div>
+
+        <div class="footer-actions">
+          <button id="restartBtn" class="ghost-btn">Reiniciar test</button>
+          <button id="downloadBtn" class="primary-btn">Descargar resultados (.txt)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leave Page Overlay -->
+    <div id="restartOverlay" class="overlay hidden">
+      <div class="overlay-card">
+        <h3 id="overlayTitle">Test reiniciado</h3>
+        <p id="overlayDesc">
+          Saliste de la página. Por integridad del test, debes comenzar de nuevo.
+        </p>
+        <button id="overlayRestart" class="primary-btn">Volver a iniciar</button>
+      </div>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+  </main>
+
+  <script src="script.js"></script>
+</body>
 </html>

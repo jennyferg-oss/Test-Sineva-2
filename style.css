@@ -66,8 +66,8 @@ body{
 .timer-label{font-size:11px; color:var(--muted);}
 .timer-value{font-size:18px; font-weight:800; color:#081325;}
 
-.screen{display:none;}
-.screen.active{display:block;}
+/* ✅ FIX: screens are visible; only .hidden hides */
+.screen{display:block;}
 .hidden{display:none !important;}
 
 .card{

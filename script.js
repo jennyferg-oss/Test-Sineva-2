@@ -1,964 +1,563 @@
-const likertScale = [
-  { value: 5, label: "Strongly agree" },
-  { value: 4, label: "Agree" },
-  { value: 3, label: "Neutral" },
-  { value: 2, label: "Disagree" },
-  { value: 1, label: "Strongly disagree" },
-];
+/* =========================
+   DATA: 50 QUESTIONS TOTAL
+   5 MODULES x 10 QUESTIONS
+   + Embedded Big Five tags
+   ========================= */
 
-const modules = [
+const MODULES = [
   {
-    id: "innovacion",
+    id: "innovation",
     title: "Module 1 — Innovation",
-    competency: "Innovation",
-    description:
-      "Looks at how you move from ideas to tangible pilots, keep experiments lean, and learn quickly from user signals.",
+    desc: "How you explore ideas, challenge assumptions, and create value.",
     questions: [
-      {
-        id: "IN1",
-        moduleId: "innovacion",
-        prompt:
-          "Your squad receives an ambiguous challenge with minimal context. What do you do first?",
-        style: "scenario",
-        trait: "apertura",
-        options: [
-          {
-            value: 5,
-            label:
-              "Pull in two key people, ship a prototype in 48 hours, and validate with early users",
-          },
-          {
-            value: 4,
-            label:
-              "Ask for minimal data, release a slim version, and iterate in parallel",
-          },
-          {
-            value: 3,
-            label:
-              "Run a broad brainstorm before building anything tangible",
-          },
-          { value: 2, label: "Wait for full leadership guidance before acting" },
-          { value: 1, label: "Pause everything until the risk is fully contained" },
-        ],
-      },
-      {
-        id: "IN2",
-        moduleId: "innovacion",
-        prompt:
-          "I turn user feedback into actionable prototypes in under 72 hours.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "IN3",
-        moduleId: "innovacion",
-        prompt:
-          "If an experiment fails, you document learnings and propose the next test within:",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Under 48 hours" },
-          { value: 4, label: "Within the same week" },
-          { value: 3, label: "During the next sprint" },
-          { value: 2, label: "When there's spare time" },
-          { value: 1, label: "I avoid proposing another experiment" },
-        ],
-      },
-      {
-        id: "IN4",
-        moduleId: "innovacion",
-        prompt:
-          "I mix data and qualitative observation before deciding whether to scale a pilot idea.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "IN5",
-        moduleId: "innovacion",
-        prompt:
-          "In an internal hackathon you prioritize:",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Building a functional demo that solves a real pain" },
-          { value: 4, label: "Testing an emerging technology applied to a flow" },
-          { value: 3, label: "Presenting an inspiring, well-told concept" },
-          { value: 2, label: "Optimizing something small to get a quick win" },
-          { value: 1, label: "Avoiding risks and replicating something that already exists" },
-        ],
-      },
-      {
-        id: "IN6",
-        moduleId: "innovacion",
-        prompt:
-          "When a key assumption is fuzzy, you design A/B tests or controlled pilots instead of deciding by intuition.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "IN7",
-        moduleId: "innovacion",
-        prompt:
-          "You actively look for references from other industries to inspire solutions.",
-        style: "likert",
-        trait: "apertura",
-        options: likertScale,
-      },
-      {
-        id: "IN8",
-        moduleId: "innovacion",
-        prompt:
-          "When evaluating adding AI to a process, what do you do first?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Map use cases, estimate impact, and run a small test" },
-          { value: 4, label: "Consult experts and define success criteria" },
-          { value: 3, label: "Read trends and wait for another team to try" },
-          { value: 2, label: "Postpone until there's a big budget" },
-          { value: 1, label: "Dismiss it because it's complex" },
-        ],
-      },
-      {
-        id: "IN9",
-        moduleId: "innovacion",
-        prompt:
-          "You feel comfortable challenging business assumptions in front of senior leaders.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "IN10",
-        moduleId: "innovacion",
-        prompt:
-          "If you only had one week to deliver value, what would you prioritize?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "A minimum version that solves a critical pain" },
-          { value: 4, label: "A usable flow even if it's not perfect" },
-          { value: 3, label: "A report with hypotheses and a roadmap" },
-          { value: 2, label: "A detailed benchmark" },
-          { value: 1, label: "Waiting until full scope is defined" },
-        ],
-      },
-    ],
+      { text: "Your team is stuck using a process that works 'well enough' but wastes time. What do you do first?", type:"scenario", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "I often notice patterns or opportunities others miss, even if they aren’t obvious at first.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "A client asks for a solution you’ve never built before and the timeline is tight. You:", type:"scenario", competency:"innovation", bigFive:["C"], reverse:false },
+      { text: "I prefer improving existing ideas rather than proposing something totally new. (Subtle)", type:"likert", competency:"innovation", bigFive:["O"], reverse:true },
+      { text: "You discover a new tool that could help, but others are skeptical. What’s your move?", type:"scenario", competency:"innovation", bigFive:[], reverse:false },
+      { text: "When facing a problem, I enjoy experimenting with multiple approaches before choosing one.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "You’re offered two paths: a safe option with predictable results, or a bold option with bigger upside. You choose:", type:"scenario", competency:"innovation", bigFive:["N"], reverse:false },
+      { text: "I get energized by ambiguity because it gives room for creativity.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "When someone says 'that’s how we’ve always done it', I usually accept it without pushing much. (Subtle)", type:"likert", competency:"innovation", bigFive:["A"], reverse:true },
+      { text: "You need a fresh idea, but data is incomplete. You:", type:"scenario", competency:"innovation", bigFive:[], reverse:false }
+    ]
   },
   {
-    id: "liderazgo",
+    id: "leadership",
     title: "Module 2 — Leadership",
-    competency: "Leadership",
-    description:
-      "Explores how you mobilize teams, hold accountability with empathy, and navigate tough calls with clarity.",
+    desc: "How you influence, take ownership, and move people toward outcomes.",
     questions: [
-      {
-        id: "LI1",
-        moduleId: "liderazgo",
-        prompt:
-          "When a project drifts off-track, how do you respond with the team?",
-        style: "scenario",
-        trait: "responsabilidad",
-        options: [
-          { value: 5, label: "Reframe priorities, assign clear owners, and set weekly checkpoints" },
-          { value: 4, label: "Request a recovery plan we all agree on and follow up" },
-          { value: 3, label: "Ask for explanations and wait for the next sprint" },
-          { value: 2, label: "Escalate the problem and delegate the solution entirely" },
-          { value: 1, label: "Let the team figure it out alone" },
-        ],
-      },
-      {
-        id: "LI2",
-        moduleId: "liderazgo",
-        prompt:
-          "I deliver tough feedback directly and respectfully, even under pressure.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "LI3",
-        moduleId: "liderazgo",
-        prompt:
-          "In executive forums, how do you present risks?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "With metrics, mitigation plans, and specific owners" },
-          { value: 4, label: "With estimates and the support we need" },
-          { value: 3, label: "Only if asked, in a general way" },
-          { value: 2, label: "I avoid mentioning risks to not slow the decision" },
-          { value: 1, label: "I avoid executive forums" },
-        ],
-      },
-      {
-        id: "LI4",
-        moduleId: "liderazgo",
-        prompt:
-          "You push for everyone to understand how their work connects to business impact.",
-        style: "likert",
-        trait: "extraversion",
-        options: likertScale,
-      },
-      {
-        id: "LI5",
-        moduleId: "liderazgo",
-        prompt:
-          "When two areas collide, you prioritize:",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Facilitating an agreement using data and shared priorities" },
-          { value: 4, label: "Setting ground rules and asking teams to follow them" },
-          { value: 3, label: "Asking the direct manager to solve it" },
-          { value: 2, label: "Taking sides with the closest relationship" },
-          { value: 1, label: "Not intervening" },
-        ],
-      },
-      {
-        id: "LI6",
-        moduleId: "liderazgo",
-        prompt:
-          "I recognize wins publicly and correct in private.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "LI7",
-        moduleId: "liderazgo",
-        prompt:
-          "If a critical deliverable fails, what do you do in the retrospective?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Find root causes, co-design actions, and assign owners" },
-          { value: 4, label: "Document lessons and agree on a plan" },
-          { value: 3, label: "Log incidents without going deep" },
-          { value: 2, label: "Blame the external delay" },
-          { value: 1, label: "Avoid retrospectives" },
-        ],
-      },
-      {
-        id: "LI8",
-        moduleId: "liderazgo",
-        prompt:
-          "You see yourself as the person who energizes and gives direction when things are ambiguous.",
-        style: "likert",
-        trait: "extraversion",
-        options: likertScale,
-      },
-      {
-        id: "LI9",
-        moduleId: "liderazgo",
-        prompt:
-          "When you delegate, you usually:",
-        style: "scenario",
-        trait: "responsabilidad",
-        options: [
-          { value: 5, label: "Clarify success, boundaries, and follow-up checkpoints" },
-          { value: 4, label: "Assign tasks and review at the end" },
-          { value: 3, label: "Give full freedom with no metrics" },
-          { value: 2, label: "Take back control as soon as it gets hard" },
-          { value: 1, label: "Avoid delegating" },
-        ],
-      },
-      {
-        id: "LI10",
-        moduleId: "liderazgo",
-        prompt:
-          "Making unpopular decisions feels manageable when they protect the strategy.",
-        style: "likert",
-        options: likertScale,
-      },
-    ],
+      { text: "Two teammates disagree strongly in front of the client. In the moment you:", type:"scenario", competency:"leadership", bigFive:["A"], reverse:false },
+      { text: "I naturally step up to coordinate when no one is clearly leading.", type:"likert", competency:"leadership", bigFive:["E"], reverse:false },
+      { text: "A high-stakes task is late and everyone is stressed. You:", type:"scenario", competency:"leadership", bigFive:["N"], reverse:false },
+      { text: "I avoid giving direct feedback because it can create tension. (Subtle)", type:"likert", competency:"leadership", bigFive:["A"], reverse:true },
+      { text: "A junior colleague is underperforming but very motivated. Your first step is:", type:"scenario", competency:"leadership", bigFive:["A","C"], reverse:false },
+      { text: "I set clear expectations and check progress without micromanaging.", type:"likert", competency:"leadership", bigFive:["C"], reverse:false },
+      { text: "Your idea is rejected by the team. You:", type:"scenario", competency:"leadership", bigFive:["E"], reverse:false },
+      { text: "I can stay calm and decisive when others feel uncertain.", type:"likert", competency:"leadership", bigFive:["N"], reverse:false },
+      { text: "I prefer to wait for formal authority before acting. (Subtle)", type:"likert", competency:"leadership", bigFive:["E"], reverse:true },
+      { text: "A project is failing. You realize your plan contributed to it. You:", type:"scenario", competency:"leadership", bigFive:["C"], reverse:false }
+    ]
   },
   {
-    id: "adaptacion",
+    id: "adaptability",
     title: "Module 3 — Adaptability",
-    competency: "Adaptability",
-    description:
-      "Measures how you adjust to change, manage pressure, and rebalance plans without losing quality.",
+    desc: "How you respond to change, uncertainty, and new constraints.",
     questions: [
-      {
-        id: "AD1",
-        moduleId: "adaptacion",
-        prompt:
-          "Priorities shift mid-sprint. How do you respond?",
-        style: "scenario",
-        trait: "estabilidad",
-        options: [
-          { value: 5, label: "Replan, communicate impacts, and protect the team" },
-          { value: 4, label: "Reshuffle tasks and note risks" },
-          { value: 3, label: "Do what I can without re-planning" },
-          { value: 2, label: "Stick to the initial plan with no changes" },
-          { value: 1, label: "Freeze or get frustrated" },
-        ],
-      },
-      {
-        id: "AD2",
-        moduleId: "adaptacion",
-        prompt:
-          "I can stay calm when several things break at the same time.",
-        style: "likert",
-        trait: "estabilidad",
-        options: likertScale,
-      },
-      {
-        id: "AD3",
-        moduleId: "adaptacion",
-        prompt:
-          "When a process changes, you update stakeholders and propose adjustments immediately.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "AD4",
-        moduleId: "adaptacion",
-        prompt: "If a critical vendor fails, what do you do?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Activate plan B, communicate, and protect critical deliverables" },
-          { value: 4, label: "Search alternatives and renegotiate" },
-          { value: 3, label: "Wait for the vendor to solve it" },
-          { value: 2, label: "Stop everything until further notice" },
-          { value: 1, label: "Escalate without proposing a solution" },
-        ],
-      },
-      {
-        id: "AD5",
-        moduleId: "adaptacion",
-        prompt:
-          "Switching contexts several times a day hurts the quality of my decisions.",
-        style: "likert",
-        options: [
-          { value: 1, label: "Strongly agree" },
-          { value: 2, label: "Agree" },
-          { value: 3, label: "Neutral" },
-          { value: 4, label: "Disagree" },
-          { value: 5, label: "Strongly disagree" },
-        ],
-      },
-      {
-        id: "AD6",
-        moduleId: "adaptacion",
-        prompt: "When a new regulation hits, what do you do first?",
-        style: "scenario",
-        trait: "apertura",
-        options: [
-          { value: 5, label: "Interpret implications and redesign the flow with experts" },
-          { value: 4, label: "Bring legal and product together to align adjustments" },
-          { value: 3, label: "Wait for an official playbook" },
-          { value: 2, label: "Assume it doesn't apply" },
-          { value: 1, label: "Ignore it until it's urgent" },
-        ],
-      },
-      {
-        id: "AD7",
-        moduleId: "adaptacion",
-        prompt:
-          "You can change your decision when new evidence appears without losing credibility.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "AD8",
-        moduleId: "adaptacion",
-        prompt: "If available time is cut in half, how do you protect quality?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Cut scope, keep critical standards, and define checklists" },
-          { value: 4, label: "Ask for extra help and re-prioritize" },
-          { value: 3, label: "Work extra hours without rethinking" },
-          { value: 2, label: "Deliver anyway even if quality drops" },
-          { value: 1, label: "Give up on the deliverable" },
-        ],
-      },
-      {
-        id: "AD9",
-        moduleId: "adaptacion",
-        prompt:
-          "You enjoy learning new tools even if it pushes you out of your comfort zone.",
-        style: "likert",
-        trait: "apertura",
-        options: likertScale,
-      },
-      {
-        id: "AD10",
-        moduleId: "adaptacion",
-        prompt: "When crises surface, how do you communicate?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Share facts, plans, and timelines transparently" },
-          { value: 4, label: "Share essentials with empathy and ask for patience" },
-          { value: 3, label: "Communicate only internally" },
-          { value: 2, label: "Avoid communicating until it's solved" },
-          { value: 1, label: "Don't communicate it" },
-        ],
-      },
-    ],
+      { text: "A priority changes suddenly after you’ve invested days of work. You:", type:"scenario", competency:"adaptability", bigFive:["N"], reverse:false },
+      { text: "I can let go of old plans quickly if a better direction appears.", type:"likert", competency:"adaptability", bigFive:["O"], reverse:false },
+      { text: "You join a project midstream with little documentation. Your approach is:", type:"scenario", competency:"adaptability", bigFive:["C"], reverse:false },
+      { text: "When routines break, I tend to feel blocked and less productive. (Subtle)", type:"likert", competency:"adaptability", bigFive:["N"], reverse:true },
+      { text: "A client adds an unexpected legal constraint. You:", type:"scenario", competency:"adaptability", bigFive:[], reverse:false },
+      { text: "I enjoy learning new systems even when it slows me down temporarily.", type:"likert", competency:"adaptability", bigFive:["O"], reverse:false },
+      { text: "Your plan fails due to external factors. You:", type:"scenario", competency:"adaptability", bigFive:["N"], reverse:false },
+      { text: "I stay effective even when instructions are incomplete.", type:"likert", competency:"adaptability", bigFive:["C"], reverse:false },
+      { text: "If rules change, I usually resist until I’m forced to adapt. (Subtle)", type:"likert", competency:"adaptability", bigFive:["A"], reverse:true },
+      { text: "You move to a role that requires a skill you don’t yet master. You:", type:"scenario", competency:"adaptability", bigFive:[], reverse:false }
+    ]
   },
   {
-    id: "comunicacion",
+    id: "communication",
     title: "Module 4 — Communication",
-    competency: "Communication",
-    description:
-      "Reviews how clearly you transmit decisions, listen actively, and adapt the message to each audience.",
+    desc: "How clearly you share ideas, listen, and handle tough conversations.",
     questions: [
-      {
-        id: "CO1",
-        moduleId: "comunicacion",
-        prompt: "Before an executive presentation, what do you prioritize?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Clear structure, a decision, and supporting data" },
-          { value: 4, label: "Polished visuals and narrative" },
-          { value: 3, label: "Checking spelling and appendices" },
-          { value: 2, label: "Improvising" },
-          { value: 1, label: "Not presenting" },
-        ],
-      },
-      {
-        id: "CO2",
-        moduleId: "comunicacion",
-        prompt:
-          "You practice active listening by repeating back and clarifying what you hear.",
-        style: "likert",
-        trait: "amabilidad",
-        options: likertScale,
-      },
-      {
-        id: "CO3",
-        moduleId: "comunicacion",
-        prompt: "You get defensive when feedback questions your work.",
-        style: "likert",
-        options: [
-          { value: 1, label: "Strongly agree" },
-          { value: 2, label: "Agree" },
-          { value: 3, label: "Neutral" },
-          { value: 4, label: "Disagree" },
-          { value: 5, label: "Strongly disagree" },
-        ],
-      },
-      {
-        id: "CO4",
-        moduleId: "comunicacion",
-        prompt: "If you notice someone is lost, what do you do?",
-        style: "scenario",
-        trait: "amabilidad",
-        options: [
-          { value: 5, label: "Change the format (visual, example) and check for understanding" },
-          { value: 4, label: "Invite questions and keep going" },
-          { value: 3, label: "Send an email later" },
-          { value: 2, label: "Assume they'll eventually get it" },
-          { value: 1, label: "Ignore the signal" },
-        ],
-      },
-      {
-        id: "CO5",
-        moduleId: "comunicacion",
-        prompt:
-          "You adapt the level of detail based on the audience (technical, business, client).",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "CO6",
-        moduleId: "comunicacion",
-        prompt: "You feel comfortable facilitating workshops or large discussions.",
-        style: "likert",
-        trait: "extraversion",
-        options: likertScale,
-      },
-      {
-        id: "CO7",
-        moduleId: "comunicacion",
-        prompt: "How do you handle disagreements in meetings?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Name the disagreement, summarize points, and guide to a decision" },
-          { value: 4, label: "Park the topic and revisit with data" },
-          { value: 3, label: "Let the discussion run" },
-          { value: 2, label: "Avoid intervening" },
-          { value: 1, label: "End the meeting abruptly" },
-        ],
-      },
-      {
-        id: "CO8",
-        moduleId: "comunicacion",
-        prompt:
-          "You prefer writing one-page executive summaries to align decisions.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "CO9",
-        moduleId: "comunicacion",
-        prompt: "When there's bad news, how do you share it?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "With facts, impact, and the immediate plan" },
-          { value: 4, label: "With empathy and lighter details" },
-          { value: 3, label: "Via mass email" },
-          { value: 2, label: "I communicate late" },
-          { value: 1, label: "I don't share it" },
-        ],
-      },
-      {
-        id: "CO10",
-        moduleId: "comunicacion",
-        prompt:
-          "Async communication (docs, chats) is your primary channel to move work forward.",
-        style: "likert",
-        trait: "extraversion",
-        options: likertScale,
-      },
-    ],
+      { text: "A client misunderstands your message and gets upset. You:", type:"scenario", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "I ask clarifying questions before assuming I understand someone.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "In a meeting, a senior person dominates and others go silent. You:", type:"scenario", competency:"communication", bigFive:["E"], reverse:false },
+      { text: "I sometimes say less to avoid conflict, even if clarity suffers. (Subtle)", type:"likert", competency:"communication", bigFive:["N"], reverse:true },
+      { text: "You must explain a complex topic to a non-expert. You:", type:"scenario", competency:"communication", bigFive:["O"], reverse:false },
+      { text: "I adapt my communication style depending on who I’m speaking to.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "A teammate gives you blunt feedback that feels unfair. You:", type:"scenario", competency:"communication", bigFive:["N"], reverse:false },
+      { text: "I can disagree strongly while still making the other person feel respected.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "I assume people will 'get it' without much context. (Subtle)", type:"likert", competency:"communication", bigFive:["C"], reverse:true },
+      { text: "You notice a silent issue hurting performance, but no one talks about it. You:", type:"scenario", competency:"communication", bigFive:["E"], reverse:false }
+    ]
   },
   {
-    id: "estilo",
-    title: "Module 5 — Work style",
-    competency: "Work style",
-    description:
-      "Checks how you organize your day, collaborate, prioritize, and keep personal focus without losing the team.",
+    id: "workstyle",
+    title: "Module 5 — Work Style",
+    desc: "How you organize yourself, collaborate, and sustain results.",
     questions: [
-      {
-        id: "ES1",
-        moduleId: "estilo",
-        prompt: "You plan your week with focus blocks and windows to collaborate.",
-        style: "likert",
-        trait: "responsabilidad",
-        options: likertScale,
-      },
-      {
-        id: "ES2",
-        moduleId: "estilo",
-        prompt: "If you're constantly interrupted, what do you do?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Negotiate hours, set agreements, and protect critical time" },
-          { value: 4, label: "Ask to reschedule" },
-          { value: 3, label: "Accept every interruption" },
-          { value: 2, label: "Show frustration but change nothing" },
-          { value: 1, label: "Resign and slow down" },
-        ],
-      },
-      {
-        id: "ES3",
-        moduleId: "estilo",
-        prompt:
-          "You prefer visible boards (kanban/roadmap) so everyone can follow progress.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "ES4",
-        moduleId: "estilo",
-        prompt: "When you receive feedback, how do you incorporate it?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Prioritize it, set actions, and share when it'll be ready" },
-          { value: 4, label: "Apply it if it doesn't affect the plan" },
-          { value: 3, label: "Save it for later" },
-          { value: 2, label: "Downplay it" },
-          { value: 1, label: "Ignore it" },
-        ],
-      },
-      {
-        id: "ES5",
-        moduleId: "estilo",
-        prompt:
-          "You stay steady and productive even with external pressure or tight deadlines.",
-        style: "likert",
-        trait: "estabilidad",
-        options: likertScale,
-      },
-      {
-        id: "ES6",
-        moduleId: "estilo",
-        prompt: "How do you handle documentation?",
-        style: "scenario",
-        options: [
-          { value: 5, label: "Create actionable guides and keep them current" },
-          { value: 4, label: "Update when there are relevant changes" },
-          { value: 3, label: "Document only at the end" },
-          { value: 2, label: "Leave personal notes" },
-          { value: 1, label: "Don't document" },
-        ],
-      },
-      {
-        id: "ES7",
-        moduleId: "estilo",
-        prompt: "Being self-taught and trying new ways of working feels natural to you.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "ES8",
-        moduleId: "estilo",
-        prompt: "If you work remotely, how do you guarantee visibility?",
-        style: "scenario",
-        trait: "responsabilidad",
-        options: [
-          { value: 5, label: "Share daily progress and risks with clear deliverables" },
-          { value: 4, label: "Respond quickly and keep the board updated" },
-          { value: 3, label: "Join every meeting" },
-          { value: 2, label: "Only respond when people ask" },
-          { value: 1, label: "Give no visibility" },
-        ],
-      },
-      {
-        id: "ES9",
-        moduleId: "estilo",
-        prompt: "You prefer pairing to solve complex challenges.",
-        style: "likert",
-        options: likertScale,
-      },
-      {
-        id: "ES10",
-        moduleId: "estilo",
-        prompt: "If you spot a better way of working, what do you do?",
-        style: "scenario",
-        trait: "estabilidad",
-        options: [
-          { value: 5, label: "Pilot the change, measure impact, and propose adopting it" },
-          { value: 4, label: "Test it with my team" },
-          { value: 3, label: "Wait for others to try it" },
-          { value: 2, label: "Mention it but don't act" },
-          { value: 1, label: "Prefer not to change" },
-        ],
-      },
-    ],
-  },
+      { text: "You have 3 urgent tasks and limited time. You:", type:"scenario", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "I prefer clear structure and timelines over flexible improvisation.", type:"likert", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "A teammate consistently delivers late but with high quality. You:", type:"scenario", competency:"workstyle", bigFive:["A"], reverse:false },
+      { text: "I work best when I can decide priorities on the fly. (Subtle)", type:"likert", competency:"workstyle", bigFive:["O"], reverse:true },
+      { text: "You’re asked to support two teams with different expectations. You:", type:"scenario", competency:"workstyle", bigFive:[], reverse:false },
+      { text: "I follow through reliably, even on tasks that don’t excite me.", type:"likert", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "Work becomes repetitive for months. You:", type:"scenario", competency:"workstyle", bigFive:["O"], reverse:false },
+      { text: "I feel comfortable working independently for long periods.", type:"likert", competency:"workstyle", bigFive:["E"], reverse:false },
+      { text: "I sometimes miss details because I move fast. (Subtle)", type:"likert", competency:"workstyle", bigFive:["C"], reverse:true },
+      { text: "A critical deadline is tomorrow and new info appears today. You:", type:"scenario", competency:"workstyle", bigFive:["N"], reverse:false }
+    ]
+  }
 ];
 
-const traitLabels = {
-  apertura: "Openness to experience",
-  responsabilidad: "Conscientiousness",
-  extraversion: "Extraversion",
-  amabilidad: "Agreeableness",
-  estabilidad: "Emotional stability",
+// Big Five labels
+const BIG5 = {
+  O: "Openness",
+  C: "Conscientiousness",
+  E: "Extraversion",
+  A: "Agreeableness",
+  N: "Emotional Stability (low Neuroticism)"
 };
 
-const traitDescriptions = {
-  apertura:
-    "Explores curiosity, creativity, and willingness to test new ideas and learn from different contexts.",
-  responsabilidad:
-    "Measures personal organization, accountability, and discipline to honor commitments.",
-  extraversion: "Looks at your social energy, presence in forums, and ability to mobilize others.",
-  amabilidad: "Reflects empathy, collaboration, and capacity to build positive relationships.",
-  estabilidad:
-    "Observes how you handle stress, pressure, and unexpected change while staying calm and focused.",
+// Explanations
+const COMP_EXPLAIN = {
+  innovation:
+    "Innovation measures how you explore new ideas, challenge norms, and turn uncertainty into value. High scores suggest you actively seek improvements and creative paths. Lower scores indicate a preference for proven methods and stability.",
+  leadership:
+    "Leadership measures ownership, influence, and how you guide people toward outcomes. High scores indicate proactive direction, calm decision-making, and accountability. Lower scores may reflect a more individual-contributor or support-focused style.",
+  adaptability:
+    "Adaptability measures how you respond to change, new constraints, and shifting priorities. High scores suggest flexibility and learning agility. Lower scores can mean you thrive best with stable plans and predictable environments.",
+  communication:
+    "Communication measures clarity, listening, emotional tone, and how you handle tough conversations. High scores reflect effective alignment and trust-building. Lower scores might indicate you communicate more cautiously or indirectly.",
+  workstyle:
+    "Work Style measures organization, collaboration rhythm, and consistency under pressure. High scores indicate structured follow-through and sustainable execution. Lower scores may point to a more fluid, spontaneous, or speed-first approach."
 };
 
-const competencyDescriptions = {
-  Innovation:
-    "Ability to experiment, learn fast, and turn ideas into deliverables that generate tangible value.",
-  Leadership:
-    "Skill to mobilize teams, make clear decisions, and take responsibility for results.",
-  Adaptability: "Flexibility to adjust plans in the face of change and respond with resilience.",
-  Communication:
-    "Clarity to share decisions, listen actively, and tailor the message to each audience.",
-  "Work style":
-    "How you organize your day, prioritize, and collaborate to sustain personal and team productivity.",
+const BIG5_EXPLAIN = {
+  O:
+    "Openness reflects curiosity, imagination, and comfort with new ideas. Higher scores mean you enjoy novelty and abstract thinking. Lower scores suggest practical focus and preference for tried-and-true approaches.",
+  C:
+    "Conscientiousness reflects reliability, planning, and self-discipline. Higher scores mean you naturally organize, follow through, and track details. Lower scores suggest flexibility and a preference for adapting as you go.",
+  E:
+    "Extraversion reflects social energy, assertiveness, and outward engagement. Higher scores mean you gain energy from interaction and speak up easily. Lower scores suggest you recharge privately and communicate more selectively.",
+  A:
+    "Agreeableness reflects cooperation, empathy, and trust. Higher scores mean you prioritize harmony and support others. Lower scores suggest you’re more direct, skeptical, or challenge ideas strongly.",
+  N:
+    "Emotional Stability reflects calmness under stress. Higher scores mean you manage pressure well and recover quickly. Lower scores suggest you feel stress more intensely and may need more certainty to stay at your best."
 };
 
-const totalDurationSeconds = 20 * 60;
-const state = {
-  started: false,
-  finished: false,
-  currentModule: 0,
-  responses: {},
-  timeLeft: totalDurationSeconds,
-  timerId: null,
-  user: { nombre: "", cargo: "", email: "" },
-};
+/* =========================
+   STATE
+   ========================= */
+const startScreen = document.getElementById("startScreen");
+const testScreen = document.getElementById("testScreen");
+const resultsScreen = document.getElementById("resultsScreen");
+const questionWrap = document.getElementById("questionWrap");
+const moduleTitle = document.getElementById("moduleTitle");
+const moduleDesc = document.getElementById("moduleDesc");
+const progressFill = document.getElementById("progressFill");
+const progressText = document.getElementById("progressText");
+const timerEl = document.getElementById("timer");
+const timerWrap = document.getElementById("timerWrap");
 
-const statusPanel = document.getElementById("status-panel");
-const modulePanel = document.getElementById("module-panel");
-const resultsPanel = document.getElementById("results-panel");
+const resetModal = document.getElementById("resetModal");
+const modalOkBtn = document.getElementById("modalOkBtn");
 
-const allQuestions = modules.flatMap((module) => module.questions);
+const startBtn = document.getElementById("startBtn");
+const previewBtn = document.getElementById("previewBtn");
+const modulesPreview = document.getElementById("modulesPreview");
 
-function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60)
-    .toString()
-    .padStart(2, "0");
-  const secs = (seconds % 60).toString().padStart(2, "0");
-  return `${mins}:${secs}`;
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+const downloadHtmlBtn = document.getElementById("downloadHtmlBtn");
+const downloadJsonBtn = document.getElementById("downloadJsonBtn");
+const restartBtn = document.getElementById("restartBtn");
+const candidateSummary = document.getElementById("candidateSummary");
+const competencyResults = document.getElementById("competencyResults");
+const personalityResults = document.getElementById("personalityResults");
+
+let flatQuestions = [];
+let currentIndex = 0;
+let answers = {}; // {qIndex: 0..4}
+let candidate = null;
+
+// Timer
+let startTime = null;
+let timerInterval = null;
+
+/* =========================
+   INIT
+   ========================= */
+function buildFlatQuestions(){
+  flatQuestions = [];
+  MODULES.forEach((m, mi) => {
+    m.questions.forEach((q, qi) => {
+      flatQuestions.push({
+        ...q,
+        moduleId: m.id,
+        moduleTitle: m.title,
+        moduleIndex: mi,
+        questionIndexInModule: qi
+      });
+    });
+  });
+}
+buildFlatQuestions();
+
+function showScreen(screen){
+  [startScreen, testScreen, resultsScreen].forEach(s => s.classList.add("hidden"));
+  screen.classList.remove("hidden");
 }
 
-function updateStatus() {
-  const answered = Object.keys(state.responses).length;
-  const overallProgress = Math.round((answered / allQuestions.length) * 100);
-  const currentModule = modules[state.currentModule];
-  const moduleQuestions = currentModule.questions;
-  const moduleProgress = Math.round(
-    (moduleQuestions.filter((q) => state.responses[q.id] !== undefined).length / moduleQuestions.length) *
-      100,
-  );
+/* =========================
+   PREVIEW
+   ========================= */
+previewBtn.addEventListener("click", () => {
+  modulesPreview.classList.toggle("hidden");
+  if (!modulesPreview.innerHTML){
+    modulesPreview.innerHTML = MODULES.map(m =>
+      `<div class="pill"><strong>${m.title}</strong><br>${m.desc}</div>`
+    ).join("");
+  }
+});
 
-  statusPanel.innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">Candidate</div>
-      <div class="stat-value">${state.user.nombre || "Pending"}</div>
-      <p class="helper">${state.user.cargo || "Role"} · ${state.user.email || "Email"}</p>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Time remaining</div>
-      <div class="stat-value">${formatTime(state.timeLeft)}</div>
-      <p class="helper">20-minute global timer</p>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Overall progress</div>
-      <div class="stat-value">${overallProgress}%</div>
-      <div class="progress"><div class="progress__bar" style="width:${overallProgress}%"></div></div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Module progress</div>
-      <div class="stat-value">${moduleProgress}%</div>
-      <div class="progress"><div class="progress__bar" style="width:${moduleProgress}%"></div></div>
-    </div>
-  `;
-}
+/* =========================
+   START
+   ========================= */
+startBtn.addEventListener("click", () => {
+  const fullName = document.getElementById("fullName").value.trim();
+  const role = document.getElementById("role").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const consent = document.getElementById("consent").checked;
 
-function renderModule() {
-  if (!state.started || state.finished) {
-    modulePanel.innerHTML = "";
+  if (!fullName || !role || !email || !consent) {
+    alert("Please complete all fields and confirm consent.");
     return;
   }
 
-  const module = modules[state.currentModule];
-  const moduleQuestions = module.questions.map((q) => renderQuestion(q)).join("");
-  const moduleProgress = Math.round(
-    (module.questions.filter((q) => state.responses[q.id] !== undefined).length / module.questions.length) * 100,
-  );
+  candidate = { fullName, role, email };
+  answers = {};
+  currentIndex = 0;
 
-  modulePanel.innerHTML = `
-    <div class="module__meta">
-      <div>
-        <p class="tag">${module.competency}</p>
-        <h2>${module.title}</h2>
+  startTimer();
+  renderQuestion();
+  showScreen(testScreen);
+});
+
+/* =========================
+   TIMER
+   ========================= */
+function startTimer(){
+  startTime = Date.now();
+  timerWrap.classList.remove("hidden");
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const ms = Date.now() - startTime;
+    timerEl.textContent = formatTime(ms);
+  }, 250);
+}
+
+function stopTimer(){
+  clearInterval(timerInterval);
+}
+
+function formatTime(ms){
+  const totalSec = Math.floor(ms / 1000);
+  const min = Math.floor(totalSec / 60).toString().padStart(2,"0");
+  const sec = (totalSec % 60).toString().padStart(2,"0");
+  return `${min}:${sec}`;
+}
+
+/* =========================
+   LEAVE PAGE => RESET
+   ========================= */
+function hardResetDueToLeave(){
+  stopTimer();
+  showScreen(startScreen);
+  resetModal.classList.remove("hidden");
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden && startTime) {
+    hardResetDueToLeave();
+  }
+});
+window.addEventListener("blur", () => {
+  if (startTime) hardResetDueToLeave();
+});
+modalOkBtn.addEventListener("click", ()=> resetModal.classList.add("hidden"));
+
+/* =========================
+   RENDER QUESTION
+   ========================= */
+function renderQuestion(){
+  const q = flatQuestions[currentIndex];
+  const module = MODULES[q.moduleIndex];
+
+  moduleTitle.textContent = module.title;
+  moduleDesc.textContent = module.desc;
+
+  const answeredValue = answers[currentIndex];
+
+  const scaleLabels = [
+    "Strongly Disagree",
+    "Disagree",
+    "Neutral",
+    "Agree",
+    "Strongly Agree"
+  ];
+
+  questionWrap.innerHTML = `
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="q-num">Q ${currentIndex + 1} of ${flatQuestions.length}</span>
+        <span class="q-tag">${capitalize(q.competency)}${q.bigFive?.length ? " · Big Five" : ""}</span>
       </div>
-      <div class="stat-label">${module.questions.length} questions · advance only after completing</div>
-    </div>
-    <p class="module__desc">${module.description}</p>
-    <div>${moduleQuestions}</div>
-    <div class="module__footer">
-      <button class="ghost" ${state.currentModule === 0 ? "disabled" : ""} id="prev-btn">Previous</button>
-      <div style="flex:1"></div>
-      <span class="stat-label">${moduleProgress}% answered</span>
-      <button class="secondary" id="next-btn">${
-        state.currentModule === modules.length - 1 ? "Submit and view results" : "Next module"
-      }</button>
+      <div class="q-text">${q.text}</div>
+      <div class="scale">
+        ${scaleLabels.map((lab, i) => `
+          <button type="button"
+                  class="${answeredValue === i ? "selected" : ""}"
+                  data-score="${i}">
+             ${lab}
+          </button>
+        `).join("")}
+      </div>
+      <p class="muted small">
+        Choose the option that best reflects your true behavior, not what feels “ideal.”
+      </p>
     </div>
   `;
 
-  document.getElementById("prev-btn").onclick = () => {
-    if (state.currentModule > 0) {
-      state.currentModule -= 1;
-      renderModule();
-      updateStatus();
-    }
-  };
+  // attach events
+  document.querySelectorAll(".scale button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const val = Number(btn.dataset.score);
+      answers[currentIndex] = val;
+      document.querySelectorAll(".scale button").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      updateProgress();
+    });
+  });
 
-  document.getElementById("next-btn").onclick = () => {
-    const module = modules[state.currentModule];
-    const answeredAll = module.questions.every((q) => state.responses[q.id] !== undefined);
-    if (!answeredAll) {
-      alert("Please answer every question in this module before moving forward.");
-      return;
-    }
-    if (state.currentModule < modules.length - 1) {
-      state.currentModule += 1;
-      renderModule();
-      updateStatus();
-    } else {
-      finishAssessment();
-    }
-  };
+  // nav state
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.textContent = currentIndex === flatQuestions.length - 1 ? "Finish" : "Next";
+
+  updateProgress();
 }
 
-function renderQuestion(question) {
-  const selected = state.responses[question.id];
-  const optionsHtml = question.options
-    .map(
-      (opt) => `
-      <label class="option ${selected === opt.value ? "selected" : ""}">
-        <input type="radio" name="${question.id}" value="${opt.value}" ${
-        selected === opt.value ? "checked" : ""
-      } />
-        <div>
-          <p class="question__choice">${opt.label}</p>
-          ${opt.helper ? `<p class="helper">${opt.helper}</p>` : ""}
+function updateProgress(){
+  const done = Object.keys(answers).length;
+  const total = flatQuestions.length;
+  const pct = Math.round((done/total)*100);
+  progressFill.style.width = pct + "%";
+  progressText.textContent = `${done}/${total}`;
+}
+
+/* =========================
+   NAV
+   ========================= */
+prevBtn.addEventListener("click", () => {
+  if (currentIndex > 0){
+    currentIndex--;
+    renderQuestion();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (answers[currentIndex] == null){
+    alert("Please select an answer before continuing.");
+    return;
+  }
+
+  if (currentIndex === flatQuestions.length - 1){
+    finishTest();
+  } else {
+    currentIndex++;
+    renderQuestion();
+  }
+});
+
+/* =========================
+   SCORING
+   ========================= */
+function finishTest(){
+  stopTimer();
+  const elapsed = formatTime(Date.now() - startTime);
+
+  // competency buckets
+  const compScores = {innovation: [], leadership: [], adaptability: [], communication: [], workstyle: []};
+  const bigScores = {O: [], C: [], E: [], A: [], N: []};
+
+  flatQuestions.forEach((q, idx) => {
+    let raw = answers[idx]; // 0..4
+    if (q.reverse) raw = 4 - raw;
+
+    compScores[q.competency].push(raw);
+
+    (q.bigFive || []).forEach(trait => {
+      bigScores[trait].push(raw);
+    });
+  });
+
+  const compPct = {};
+  for (const k in compScores){
+    compPct[k] = average(compScores[k]) / 4 * 100; // normalize to 100
+  }
+
+  const bigPct = {};
+  for (const t in bigScores){
+    if (bigScores[t].length === 0) bigPct[t] = null;
+    else bigPct[t] = average(bigScores[t]) / 4 * 100;
+  }
+
+  // Render results
+  candidateSummary.textContent =
+    `${candidate.fullName} · Applying for: ${candidate.role} · ${candidate.email} · Time: ${elapsed}`;
+
+  competencyResults.innerHTML = Object.keys(compPct).map(key =>
+    resultCard(capitalize(key), compPct[key], COMP_EXPLAIN[key])
+  ).join("");
+
+  personalityResults.innerHTML = Object.keys(BIG5).map(t =>
+    resultCard(BIG5[t], bigPct[t], BIG5_EXPLAIN[t], true)
+  ).join("");
+
+  // Save latest results for download
+  const resultPayload = {
+    candidate,
+    elapsed,
+    competencies: compPct,
+    bigFive: bigPct,
+    answers: flatQuestions.map((q, i) => ({
+      module: q.moduleId,
+      competency: q.competency,
+      bigFive: q.bigFive,
+      reverse: q.reverse,
+      question: q.text,
+      score: answers[i]
+    }))
+  };
+  window.__LATEST_RESULTS__ = resultPayload;
+
+  showScreen(resultsScreen);
+}
+
+function average(arr){
+  return arr.reduce((a,b)=>a+b,0) / arr.length;
+}
+
+function capitalize(s){
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function resultCard(title, pct, explain, isPersonality=false){
+  if (pct == null){
+    return `
+      <div class="result-card">
+        <div class="result-head">
+          <div class="result-title">${title}</div>
+          <div class="result-score muted">n/a</div>
         </div>
-      </label>
-    `,
-    )
-    .join("");
+        <div class="result-explain muted">Not enough items to estimate.</div>
+      </div>`;
+  }
+  const rounded = Math.round(pct);
+  const label = isPersonality
+    ? `${rounded}% expression`
+    : `${rounded}% of ideal benchmark`;
 
   return `
-    <div class="question">
-      <div class="question__title">${question.id}. ${question.prompt}</div>
-      <div class="options" data-question="${question.id}">${optionsHtml}</div>
-      ${
-        question.trait
-          ? `<p class="helper">Big Five asociado: ${traitLabels[question.trait]}</p>`
-          : ""
-      }
-    </div>
-  `;
-}
-
-function attachOptionHandlers() {
-  modulePanel.addEventListener("change", (event) => {
-    const target = event.target;
-    if (target.matches("input[type='radio']")) {
-      const questionId = target.getAttribute("name");
-      const value = Number(target.value);
-      state.responses[questionId] = value;
-      renderModule();
-      updateStatus();
-    }
-  });
-}
-
-function calculateModuleSummaries() {
-  return modules.map((module) => {
-    const obtained = module.questions.reduce((sum, q) => sum + (state.responses[q.id] || 0), 0);
-    const max = module.questions.length * 5;
-    const score = Math.round((obtained / max) * 100);
-    return { ...module, score };
-  });
-}
-
-function calculateTraitScores() {
-  const result = {
-    apertura: { score: 0, count: 0 },
-    responsabilidad: { score: 0, count: 0 },
-    extraversion: { score: 0, count: 0 },
-    amabilidad: { score: 0, count: 0 },
-    estabilidad: { score: 0, count: 0 },
-  };
-
-  allQuestions.forEach((question) => {
-    if (!question.trait) return;
-    result[question.trait].score += state.responses[question.id] || 0;
-    result[question.trait].count += 1;
-  });
-
-  return Object.keys(result).reduce((acc, trait) => {
-    const data = result[trait];
-    const normalized = data.count ? Math.round((data.score / (data.count * 5)) * 100) : 0;
-    acc[trait] = normalized;
-    return acc;
-  }, {});
-}
-
-function finishAssessment() {
-  state.finished = true;
-  clearInterval(state.timerId);
-  modulePanel.innerHTML = "";
-  renderResults();
-  updateStatus();
-}
-
-function renderResults() {
-  const moduleSummaries = calculateModuleSummaries();
-  const traitScores = calculateTraitScores();
-  resultsPanel.classList.remove("hidden");
-
-  const competenciesHtml = moduleSummaries
-    .map(
-      (module) => `
-      <div class="card">
-        <h3>${module.competency}</h3>
-        <p>${competencyDescriptions[module.competency]}</p>
-        <div class="stat-value">${module.score}%</div>
-        <div class="progress"><div class="progress__bar" style="width:${module.score}%"></div></div>
+    <div class="result-card">
+      <div class="result-head">
+        <div class="result-title">${title}</div>
+        <div class="result-score">${label}</div>
       </div>
-    `,
-    )
-    .join("");
-
-  const bigFiveHtml = Object.keys(traitScores)
-    .map((trait) => {
-      const score = traitScores[trait];
-      return `
-        <div class="card">
-          <h3>${traitLabels[trait]}</h3>
-          <p>${traitDescriptions[trait]}</p>
-          <div class="stat-value">${score}%</div>
-          <div class="progress"><div class="progress__bar" style="width:${score}%"></div></div>
-        </div>
-      `;
-    })
-    .join("");
-
-  resultsPanel.innerHTML = `
-    <div class="module__meta">
-      <div>
-        <p class="tag">Results</p>
-        <h2>Full summary</h2>
-      </div>
-      <button class="secondary" id="restart-btn">Restart</button>
-    </div>
-    <div class="result-grid">${competenciesHtml}</div>
-    <h3>Big Five personality profile</h3>
-    <div class="result-grid">${bigFiveHtml}</div>
-  `;
-
-  document.getElementById("restart-btn").onclick = () => {
-    window.location.reload();
-  };
+      <div class="result-bar"><div style="width:${rounded}%"></div></div>
+      <div class="result-explain">${explain}</div>
+    </div>`;
 }
 
-function startTimer() {
-  state.timerId = setInterval(() => {
-    if (!state.started || state.finished) return;
-    state.timeLeft -= 1;
-    if (state.timeLeft <= 0) {
-      state.timeLeft = 0;
-      finishAssessment();
-    }
-    updateStatus();
-  }, 1000);
+/* =========================
+   DOWNLOADS
+   ========================= */
+downloadJsonBtn.addEventListener("click", () => {
+  const data = window.__LATEST_RESULTS__;
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  triggerDownload(url, `assessment_${slug(candidate.fullName)}.json`);
+});
+
+downloadHtmlBtn.addEventListener("click", () => {
+  const data = window.__LATEST_RESULTS__;
+  const html = buildPrintableHtml(data);
+  const blob = new Blob([html], {type:"text/html"});
+  const url = URL.createObjectURL(blob);
+  triggerDownload(url, `assessment_${slug(candidate.fullName)}.html`);
+});
+
+function triggerDownload(url, filename){
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
 }
 
-function startAssessment() {
-  const form = document.getElementById("start-form");
-  const data = new FormData(form);
-  state.user = {
-    nombre: data.get("nombre").trim(),
-    cargo: data.get("cargo").trim(),
-    email: data.get("email").trim(),
-  };
-
-  if (!state.user.nombre || !state.user.cargo || !state.user.email) {
-    alert("Please fill in your name, role, and email to begin.");
-    return;
-  }
-
-  state.started = true;
-  state.finished = false;
-  state.currentModule = 0;
-  state.responses = {};
-  state.timeLeft = totalDurationSeconds;
-  resultsPanel.classList.add("hidden");
-
-  updateStatus();
-  renderModule();
-  startTimer();
+function slug(s){
+  return s.toLowerCase().replace(/[^a-z0-9]+/g,"_").replace(/^_|_$/g,"");
 }
 
-function blockNavigation() {
-  window.addEventListener("beforeunload", (event) => {
-    if (state.started && !state.finished) {
-      event.preventDefault();
-      event.returnValue = "";
-    }
-  });
+function buildPrintableHtml(data){
+  const {candidate, elapsed, competencies, bigFive} = data;
+
+  const compRows = Object.keys(competencies).map(k => `
+    <tr>
+      <td>${capitalize(k)}</td>
+      <td>${Math.round(competencies[k])}%</td>
+      <td>${COMP_EXPLAIN[k]}</td>
+    </tr>
+  `).join("");
+
+  const bigRows = Object.keys(BIG5).map(t => `
+    <tr>
+      <td>${BIG5[t]}</td>
+      <td>${Math.round(bigFive[t] ?? 0)}%</td>
+      <td>${BIG5_EXPLAIN[t]}</td>
+    </tr>
+  `).join("");
+
+  return `
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Assessment Results</title>
+  <style>
+    body{font-family:Inter,Arial,sans-serif;padding:24px;color:#111;}
+    h1{margin-top:0;}
+    table{width:100%;border-collapse:collapse;margin:10px 0 18px;}
+    th,td{border:1px solid #ddd;padding:8px;vertical-align:top;}
+    th{background:#f3f4f6;text-align:left;}
+    .meta{color:#374151;margin-bottom:10px;}
+    .pill{display:inline-block;background:#ecfdf5;color:#065f46;padding:4px 8px;border-radius:999px;font-weight:700;font-size:12px;}
+  </style>
+</head>
+<body>
+  <h1>Sineva Assessment Results</h1>
+  <div class="meta">
+    <div><strong>Name:</strong> ${candidate.fullName}</div>
+    <div><strong>Role:</strong> ${candidate.role}</div>
+    <div><strong>Email:</strong> ${candidate.email}</div>
+    <div><strong>Elapsed time:</strong> ${elapsed}</div>
+  </div>
+
+  <h2><span class="pill">Competencies</span></h2>
+  <table>
+    <thead><tr><th>Competency</th><th>Score</th><th>Meaning</th></tr></thead>
+    <tbody>${compRows}</tbody>
+  </table>
+
+  <h2><span class="pill">Big Five Personality</span></h2>
+  <table>
+    <thead><tr><th>Trait</th><th>Expression</th><th>Meaning</th></tr></thead>
+    <tbody>${bigRows}</tbody>
+  </table>
+
+  <p><em>These results are indicators, not verdicts. They help us understand fit, strengths, and preferred styles.</em></p>
+</body>
+</html>`;
 }
 
-function init() {
-  const form = document.getElementById("start-form");
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    startAssessment();
-  });
-
-  attachOptionHandlers();
-  blockNavigation();
-}
-
-init();
+/* =========================
+   RESTART
+   ========================= */
+restartBtn.addEventListener("click", () => {
+  location.reload();
+});

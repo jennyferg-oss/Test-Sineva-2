@@ -10,76 +10,16 @@ const MODULES = [
     title: "Module 1 — Innovation",
     desc: "How you explore ideas, challenge assumptions, and create value.",
     questions: [
-      {
-        text: "Your team is stuck using a process that works 'well enough' but wastes time. What do you do first?",
-        type: "scenario",
-        competency: "innovation",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "I often notice patterns or opportunities others miss, even if they aren’t obvious at first.",
-        type: "likert",
-        competency: "innovation",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "A client asks for a solution you’ve never built before and the timeline is tight. You:",
-        type: "scenario",
-        competency: "innovation",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "I prefer improving existing ideas rather than proposing something totally new. (Subtle)",
-        type: "likert",
-        competency: "innovation",
-        bigFive: ["O"],
-        reverse: true
-      },
-      {
-        text: "You discover a new tool that could help, but others are skeptical. What’s your move?",
-        type: "scenario",
-        competency: "innovation",
-        bigFive: [],
-        reverse: false
-      },
-      {
-        text: "When facing a problem, I enjoy experimenting with multiple approaches before choosing one.",
-        type: "likert",
-        competency: "innovation",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "You’re offered two paths: a safe option with predictable results, or a bold option with bigger upside. You choose:",
-        type: "scenario",
-        competency: "innovation",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I get energized by ambiguity because it gives room for creativity.",
-        type: "likert",
-        competency: "innovation",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "When someone says 'that’s how we’ve always done it', I usually accept it without pushing much. (Subtle)",
-        type: "likert",
-        competency: "innovation",
-        bigFive: ["A"],
-        reverse: true
-      },
-      {
-        text: "You need a fresh idea, but data is incomplete. You:",
-        type: "scenario",
-        competency: "innovation",
-        bigFive: [],
-        reverse: false
-      }
+      { text: "Your team is stuck using a process that works 'well enough' but wastes time. What do you do first?", type:"scenario", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "I often notice patterns or opportunities others miss, even if they aren’t obvious at first.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "A client asks for a solution you’ve never built before and the timeline is tight. You:", type:"scenario", competency:"innovation", bigFive:["C"], reverse:false },
+      { text: "I prefer improving existing ideas rather than proposing something totally new. (Subtle)", type:"likert", competency:"innovation", bigFive:["O"], reverse:true },
+      { text: "You discover a new tool that could help, but others are skeptical. What’s your move?", type:"scenario", competency:"innovation", bigFive:[], reverse:false },
+      { text: "When facing a problem, I enjoy experimenting with multiple approaches before choosing one.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "You’re offered two paths: a safe option with predictable results, or a bold option with bigger upside. You choose:", type:"scenario", competency:"innovation", bigFive:["N"], reverse:false },
+      { text: "I get energized by ambiguity because it gives room for creativity.", type:"likert", competency:"innovation", bigFive:["O"], reverse:false },
+      { text: "When someone says 'that’s how we’ve always done it', I usually accept it without pushing much. (Subtle)", type:"likert", competency:"innovation", bigFive:["A"], reverse:true },
+      { text: "You need a fresh idea, but data is incomplete. You:", type:"scenario", competency:"innovation", bigFive:[], reverse:false }
     ]
   },
   {
@@ -87,76 +27,16 @@ const MODULES = [
     title: "Module 2 — Leadership",
     desc: "How you influence, take ownership, and move people toward outcomes.",
     questions: [
-      {
-        text: "Two teammates disagree strongly in front of the client. In the moment you:",
-        type: "scenario",
-        competency: "leadership",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "I naturally step up to coordinate when no one is clearly leading.",
-        type: "likert",
-        competency: "leadership",
-        bigFive: ["E"],
-        reverse: false
-      },
-      {
-        text: "A high-stakes task is late and everyone is stressed. You:",
-        type: "scenario",
-        competency: "leadership",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I avoid giving direct feedback because it can create tension. (Subtle)",
-        type: "likert",
-        competency: "leadership",
-        bigFive: ["A"],
-        reverse: true
-      },
-      {
-        text: "A junior colleague is underperforming but very motivated. Your first step is:",
-        type: "scenario",
-        competency: "leadership",
-        bigFive: ["A","C"],
-        reverse: false
-      },
-      {
-        text: "I set clear expectations and check progress without micromanaging.",
-        type: "likert",
-        competency: "leadership",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "Your idea is rejected by the team. You:",
-        type: "scenario",
-        competency: "leadership",
-        bigFive: ["E"],
-        reverse: false
-      },
-      {
-        text: "I can stay calm and decisive when others feel uncertain.",
-        type: "likert",
-        competency: "leadership",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I prefer to wait for formal authority before acting. (Subtle)",
-        type: "likert",
-        competency: "leadership",
-        bigFive: ["E"],
-        reverse: true
-      },
-      {
-        text: "A project is failing. You realize your plan contributed to it. You:",
-        type: "scenario",
-        competency: "leadership",
-        bigFive: ["C"],
-        reverse: false
-      }
+      { text: "Two teammates disagree strongly in front of the client. In the moment you:", type:"scenario", competency:"leadership", bigFive:["A"], reverse:false },
+      { text: "I naturally step up to coordinate when no one is clearly leading.", type:"likert", competency:"leadership", bigFive:["E"], reverse:false },
+      { text: "A high-stakes task is late and everyone is stressed. You:", type:"scenario", competency:"leadership", bigFive:["N"], reverse:false },
+      { text: "I avoid giving direct feedback because it can create tension. (Subtle)", type:"likert", competency:"leadership", bigFive:["A"], reverse:true },
+      { text: "A junior colleague is underperforming but very motivated. Your first step is:", type:"scenario", competency:"leadership", bigFive:["A","C"], reverse:false },
+      { text: "I set clear expectations and check progress without micromanaging.", type:"likert", competency:"leadership", bigFive:["C"], reverse:false },
+      { text: "Your idea is rejected by the team. You:", type:"scenario", competency:"leadership", bigFive:["E"], reverse:false },
+      { text: "I can stay calm and decisive when others feel uncertain.", type:"likert", competency:"leadership", bigFive:["N"], reverse:false },
+      { text: "I prefer to wait for formal authority before acting. (Subtle)", type:"likert", competency:"leadership", bigFive:["E"], reverse:true },
+      { text: "A project is failing. You realize your plan contributed to it. You:", type:"scenario", competency:"leadership", bigFive:["C"], reverse:false }
     ]
   },
   {
@@ -164,76 +44,16 @@ const MODULES = [
     title: "Module 3 — Adaptability",
     desc: "How you respond to change, uncertainty, and new constraints.",
     questions: [
-      {
-        text: "A priority changes suddenly after you’ve invested days of work. You:",
-        type: "scenario",
-        competency: "adaptability",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I can let go of old plans quickly if a better direction appears.",
-        type: "likert",
-        competency: "adaptability",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "You join a project midstream with little documentation. Your approach is:",
-        type: "scenario",
-        competency: "adaptability",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "When routines break, I tend to feel blocked and less productive. (Subtle)",
-        type: "likert",
-        competency: "adaptability",
-        bigFive: ["N"],
-        reverse: true
-      },
-      {
-        text: "A client adds an unexpected legal constraint. You:",
-        type: "scenario",
-        competency: "adaptability",
-        bigFive: [],
-        reverse: false
-      },
-      {
-        text: "I enjoy learning new systems even when it slows me down temporarily.",
-        type: "likert",
-        competency: "adaptability",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "Your plan fails due to external factors. You:",
-        type: "scenario",
-        competency: "adaptability",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I stay effective even when instructions are incomplete.",
-        type: "likert",
-        competency: "adaptability",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "If rules change, I usually resist until I’m forced to adapt. (Subtle)",
-        type: "likert",
-        competency: "adaptability",
-        bigFive: ["A"],
-        reverse: true
-      },
-      {
-        text: "You move to a role that requires a skill you don’t yet master. You:",
-        type: "scenario",
-        competency: "adaptability",
-        bigFive: [],
-        reverse: false
-      }
+      { text: "A priority changes suddenly after you’ve invested days of work. You:", type:"scenario", competency:"adaptability", bigFive:["N"], reverse:false },
+      { text: "I can let go of old plans quickly if a better direction appears.", type:"likert", competency:"adaptability", bigFive:["O"], reverse:false },
+      { text: "You join a project midstream with little documentation. Your approach is:", type:"scenario", competency:"adaptability", bigFive:["C"], reverse:false },
+      { text: "When routines break, I tend to feel blocked and less productive. (Subtle)", type:"likert", competency:"adaptability", bigFive:["N"], reverse:true },
+      { text: "A client adds an unexpected legal constraint. You:", type:"scenario", competency:"adaptability", bigFive:[], reverse:false },
+      { text: "I enjoy learning new systems even when it slows me down temporarily.", type:"likert", competency:"adaptability", bigFive:["O"], reverse:false },
+      { text: "Your plan fails due to external factors. You:", type:"scenario", competency:"adaptability", bigFive:["N"], reverse:false },
+      { text: "I stay effective even when instructions are incomplete.", type:"likert", competency:"adaptability", bigFive:["C"], reverse:false },
+      { text: "If rules change, I usually resist until I’m forced to adapt. (Subtle)", type:"likert", competency:"adaptability", bigFive:["A"], reverse:true },
+      { text: "You move to a role that requires a skill you don’t yet master. You:", type:"scenario", competency:"adaptability", bigFive:[], reverse:false }
     ]
   },
   {
@@ -241,76 +61,16 @@ const MODULES = [
     title: "Module 4 — Communication",
     desc: "How clearly you share ideas, listen, and handle tough conversations.",
     questions: [
-      {
-        text: "A client misunderstands your message and gets upset. You:",
-        type: "scenario",
-        competency: "communication",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "I ask clarifying questions before assuming I understand someone.",
-        type: "likert",
-        competency: "communication",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "In a meeting, a senior person dominates and others go silent. You:",
-        type: "scenario",
-        competency: "communication",
-        bigFive: ["E"],
-        reverse: false
-      },
-      {
-        text: "I sometimes say less to avoid conflict, even if clarity suffers. (Subtle)",
-        type: "likert",
-        competency: "communication",
-        bigFive: ["N"],
-        reverse: true
-      },
-      {
-        text: "You must explain a complex topic to a non-expert. You:",
-        type: "scenario",
-        competency: "communication",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "I adapt my communication style depending on who I’m speaking to.",
-        type: "likert",
-        competency: "communication",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "A teammate gives you blunt feedback that feels unfair. You:",
-        type: "scenario",
-        competency: "communication",
-        bigFive: ["N"],
-        reverse: false
-      },
-      {
-        text: "I can disagree strongly while still making the other person feel respected.",
-        type: "likert",
-        competency: "communication",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "I assume people will 'get it' without much context. (Subtle)",
-        type: "likert",
-        competency: "communication",
-        bigFive: ["C"],
-        reverse: true
-      },
-      {
-        text: "You notice a silent issue hurting performance, but no one talks about it. You:",
-        type: "scenario",
-        competency: "communication",
-        bigFive: ["E"],
-        reverse: false
-      }
+      { text: "A client misunderstands your message and gets upset. You:", type:"scenario", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "I ask clarifying questions before assuming I understand someone.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "In a meeting, a senior person dominates and others go silent. You:", type:"scenario", competency:"communication", bigFive:["E"], reverse:false },
+      { text: "I sometimes say less to avoid conflict, even if clarity suffers. (Subtle)", type:"likert", competency:"communication", bigFive:["N"], reverse:true },
+      { text: "You must explain a complex topic to a non-expert. You:", type:"scenario", competency:"communication", bigFive:["O"], reverse:false },
+      { text: "I adapt my communication style depending on who I’m speaking to.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "A teammate gives you blunt feedback that feels unfair. You:", type:"scenario", competency:"communication", bigFive:["N"], reverse:false },
+      { text: "I can disagree strongly while still making the other person feel respected.", type:"likert", competency:"communication", bigFive:["A"], reverse:false },
+      { text: "I assume people will 'get it' without much context. (Subtle)", type:"likert", competency:"communication", bigFive:["C"], reverse:true },
+      { text: "You notice a silent issue hurting performance, but no one talks about it. You:", type:"scenario", competency:"communication", bigFive:["E"], reverse:false }
     ]
   },
   {
@@ -318,76 +78,16 @@ const MODULES = [
     title: "Module 5 — Work Style",
     desc: "How you organize yourself, collaborate, and sustain results.",
     questions: [
-      {
-        text: "You have 3 urgent tasks and limited time. You:",
-        type: "scenario",
-        competency: "workstyle",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "I prefer clear structure and timelines over flexible improvisation.",
-        type: "likert",
-        competency: "workstyle",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "A teammate consistently delivers late but with high quality. You:",
-        type: "scenario",
-        competency: "workstyle",
-        bigFive: ["A"],
-        reverse: false
-      },
-      {
-        text: "I work best when I can decide priorities on the fly. (Subtle)",
-        type: "likert",
-        competency: "workstyle",
-        bigFive: ["O"],
-        reverse: true
-      },
-      {
-        text: "You’re asked to support two teams with different expectations. You:",
-        type: "scenario",
-        competency: "workstyle",
-        bigFive: [],
-        reverse: false
-      },
-      {
-        text: "I follow through reliably, even on tasks that don’t excite me.",
-        type: "likert",
-        competency: "workstyle",
-        bigFive: ["C"],
-        reverse: false
-      },
-      {
-        text: "Work becomes repetitive for months. You:",
-        type: "scenario",
-        competency: "workstyle",
-        bigFive: ["O"],
-        reverse: false
-      },
-      {
-        text: "I feel comfortable working independently for long periods.",
-        type: "likert",
-        competency: "workstyle",
-        bigFive: ["E"],
-        reverse: false
-      },
-      {
-        text: "I sometimes miss details because I move fast. (Subtle)",
-        type: "likert",
-        competency: "workstyle",
-        bigFive: ["C"],
-        reverse: true
-      },
-      {
-        text: "A critical deadline is tomorrow and new info appears today. You:",
-        type: "scenario",
-        competency: "workstyle",
-        bigFive: ["N"],
-        reverse: false
-      }
+      { text: "You have 3 urgent tasks and limited time. You:", type:"scenario", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "I prefer clear structure and timelines over flexible improvisation.", type:"likert", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "A teammate consistently delivers late but with high quality. You:", type:"scenario", competency:"workstyle", bigFive:["A"], reverse:false },
+      { text: "I work best when I can decide priorities on the fly. (Subtle)", type:"likert", competency:"workstyle", bigFive:["O"], reverse:true },
+      { text: "You’re asked to support two teams with different expectations. You:", type:"scenario", competency:"workstyle", bigFive:[], reverse:false },
+      { text: "I follow through reliably, even on tasks that don’t excite me.", type:"likert", competency:"workstyle", bigFive:["C"], reverse:false },
+      { text: "Work becomes repetitive for months. You:", type:"scenario", competency:"workstyle", bigFive:["O"], reverse:false },
+      { text: "I feel comfortable working independently for long periods.", type:"likert", competency:"workstyle", bigFive:["E"], reverse:false },
+      { text: "I sometimes miss details because I move fast. (Subtle)", type:"likert", competency:"workstyle", bigFive:["C"], reverse:true },
+      { text: "A critical deadline is tomorrow and new info appears today. You:", type:"scenario", competency:"workstyle", bigFive:["N"], reverse:false }
     ]
   }
 ];
@@ -619,6 +319,7 @@ function renderQuestion(){
       answers[currentIndex] = val;
       document.querySelectorAll(".scale button").forEach(b => b.classList.remove("selected"));
       btn.classList.add("selected");
+      updateProgress();
     });
   });
 
@@ -819,7 +520,7 @@ function buildPrintableHtml(data){
   <meta charset="utf-8"/>
   <title>Assessment Results</title>
   <style>
-    body{font-family:Arial,sans-serif;padding:24px;color:#111;}
+    body{font-family:Inter,Arial,sans-serif;padding:24px;color:#111;}
     h1{margin-top:0;}
     table{width:100%;border-collapse:collapse;margin:10px 0 18px;}
     th,td{border:1px solid #ddd;padding:8px;vertical-align:top;}

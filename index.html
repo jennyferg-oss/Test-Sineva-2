@@ -1,128 +1,135 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sineva | Competencias & Personalidad (50Q)</title>
+  <title>Sineva Competency & Personality Assessment</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-  <div class="bg-orb orb-1"></div>
-  <div class="bg-orb orb-2"></div>
-  <div class="bg-orb orb-3"></div>
+  <div class="bg-orbs"></div>
 
   <main class="app">
-    <header class="app-header">
+    <!-- HEADER -->
+    <header class="topbar">
       <div class="brand">
-        <div class="logo-dot"></div>
+        <div class="logo">S</div>
         <div>
-          <h1>Competencies & Personality Assessment</h1>
-          <p class="sub">50 questions · 5 modules · Big Five included</p>
+          <h1>Sineva Assessment</h1>
+          <p>Competencies + Big Five Personality</p>
         </div>
       </div>
-
-      <div class="top-actions">
-        <button id="langToggle" class="ghost-btn" aria-label="Toggle language">
-          ES / EN
-        </button>
-        <div class="timer">
-          <span class="timer-label" id="timerLabel">Tiempo total</span>
-          <span class="timer-time" id="timer">00:00</span>
-        </div>
+      <div class="timer" id="timerWrap">
+        <span class="timer-label">Elapsed</span>
+        <span class="timer-value" id="timer">00:00</span>
       </div>
     </header>
 
-    <!-- Start Screen -->
-    <section id="startScreen" class="card">
-      <h2 id="startTitle">Antes de empezar</h2>
-      <p id="startDesc">
-        Este test mide competencias clave y personalidad. 
-        Si sales de la pestaña o cambias de aplicación, el test se reinicia.
+    <!-- START SCREEN -->
+    <section id="startScreen" class="card screen active">
+      <h2>Welcome!</h2>
+      <p class="muted">
+        This assessment has 5 short modules (50 questions total).  
+        Answer honestly. Some questions are intentionally subtle to measure real decision-making.
       </p>
 
-      <form id="startForm" class="form">
-        <div class="field">
-          <label id="nameLabel" for="fullName">Nombre completo</label>
-          <input id="fullName" type="text" required placeholder="Tu nombre"/>
-        </div>
-        <div class="field">
-          <label id="roleLabel" for="roleApplied">Cargo al que aplica</label>
-          <input id="roleApplied" type="text" required placeholder="Ej: Sales Manager"/>
-        </div>
-        <div class="field">
-          <label id="emailLabel" for="email">Email</label>
-          <input id="email" type="email" required placeholder="tu@email.com"/>
-        </div>
+      <form id="candidateForm" class="form-grid">
+        <label>
+          Full name
+          <input required type="text" id="fullName" placeholder="e.g., Alex Johnson"/>
+        </label>
+        <label>
+          Role you are applying for
+          <input required type="text" id="role" placeholder="e.g., Sales Manager"/>
+        </label>
+        <label>
+          Email
+          <input required type="email" id="email" placeholder="e.g., alex@email.com"/>
+        </label>
 
-        <div class="start-actions">
-          <div class="pill" id="questionsCount">50 preguntas</div>
-          <button class="primary-btn" type="submit" id="startBtn">
-            Iniciar test
-          </button>
-        </div>
+        <label class="checkbox">
+          <input required type="checkbox" id="consent"/>
+          <span>I understand that leaving this page will restart the test.</span>
+        </label>
       </form>
+
+      <div class="actions">
+        <button id="startBtn" class="btn primary">Start Assessment</button>
+        <button id="previewBtn" class="btn ghost">Preview Modules</button>
+      </div>
+
+      <div id="modulesPreview" class="preview hidden"></div>
     </section>
 
-    <!-- Test Screen -->
-    <section id="testScreen" class="hidden">
-      <div class="card module-header">
-        <div class="module-meta">
-          <h2 id="moduleTitle">Módulo 1</h2>
-          <p id="moduleDesc">Innovación</p>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-text">
-            <span id="moduleProgressText">0/10</span>
-            <span id="overallProgressText">0/50</span>
+    <!-- TEST SCREEN -->
+    <section id="testScreen" class="screen hidden">
+      <div class="card">
+        <div class="test-header">
+          <div>
+            <h2 id="moduleTitle"></h2>
+            <p id="moduleDesc" class="muted"></p>
           </div>
-          <div class="progress-bar">
-            <div id="progressFill"></div>
+
+          <div class="progress">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <span id="progressText" class="progress-text">0/50</span>
           </div>
         </div>
-      </div>
 
-      <div id="questionCard" class="card question-card">
-        <!-- Question injected by JS -->
-      </div>
+        <div id="questionWrap" class="question-wrap"></div>
 
-      <div class="nav-actions">
-        <button id="prevBtn" class="ghost-btn">← Anterior</button>
-        <button id="nextBtn" class="primary-btn">Siguiente →</button>
+        <div class="nav">
+          <button id="prevBtn" class="btn ghost">Back</button>
+          <button id="nextBtn" class="btn primary">Next</button>
+        </div>
       </div>
     </section>
 
-    <!-- Results Screen -->
-    <section id="resultsScreen" class="hidden">
-      <div class="card results-card">
+    <!-- RESULTS SCREEN -->
+    <section id="resultsScreen" class="screen hidden">
+      <div class="card">
         <div class="results-header">
-          <h2 id="resultsTitle">Resultados</h2>
-          <p id="resultsSub"></p>
+          <div>
+            <h2>Results</h2>
+            <p class="muted" id="candidateSummary"></p>
+          </div>
+          <div class="actions">
+            <button id="downloadHtmlBtn" class="btn primary">Download Results</button>
+            <button id="downloadJsonBtn" class="btn ghost">Download JSON</button>
+            <button id="restartBtn" class="btn danger">Restart</button>
+          </div>
         </div>
 
+        <h3>Competencies (100% = ideal benchmark)</h3>
         <div id="competencyResults" class="results-grid"></div>
-        <hr class="soft"/>
 
-        <h3 id="bigFiveTitle">Big Five de personalidad</h3>
-        <div id="bigFiveResults" class="results-grid"></div>
+        <h3>Big Five Personality (expression level, not “good or bad”)</h3>
+        <div id="personalityResults" class="results-grid"></div>
 
-        <div class="footer-actions">
-          <button id="restartBtn" class="ghost-btn">Reiniciar test</button>
-          <button id="downloadBtn" class="primary-btn">Descargar resultados (.txt)</button>
+        <div class="note">
+          <strong>Note:</strong> High or low personality scores are not automatically positive or negative.
+          We interpret them as style indicators that help match you to the role and team.
         </div>
       </div>
     </section>
 
-    <!-- Leave Page Overlay -->
-    <div id="restartOverlay" class="overlay hidden">
-      <div class="overlay-card">
-        <h3 id="overlayTitle">Test reiniciado</h3>
-        <p id="overlayDesc">
-          Saliste de la página. Por integridad del test, debes comenzar de nuevo.
+    <!-- LEAVE PAGE MODAL -->
+    <div id="resetModal" class="modal hidden">
+      <div class="modal-card">
+        <h3>Test Restarted</h3>
+        <p>
+          You left the page or switched tabs.  
+          As stated, the assessment must restart to keep results fair.
         </p>
-        <button id="overlayRestart" class="primary-btn">Volver a iniciar</button>
+        <button id="modalOkBtn" class="btn primary">OK</button>
       </div>
     </div>
 
+    <footer class="footer muted">
+      © Sineva Group — Internal Recruitment Assessment
+    </footer>
   </main>
 
   <script src="script.js"></script>

@@ -1,101 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!doctype html>
+<html lang="es">
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Executive Aptitude & Leadership Assessment</title>
+    <title>Assessment de Competencias y Personalidad</title>
     <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
-
-    <!-- ==========================
-         INTRO PAGE – NAME + EMAIL
-    ============================ -->
-    <div class="screen" id="intro-screen">
-        <div class="card">
-            <h1>Executive Aptitude & Leadership Assessment</h1>
-            <p>Please enter your information to begin.</p>
-
-            <label>Full Name</label>
-            <input type="text" id="candidate-name" placeholder="Enter your name" />
-
-            <label>Email Address</label>
-            <input type="email" id="candidate-email" placeholder="Enter your email" />
-
-            <button id="start-btn">Start Assessment</button>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <div class="hero__left">
+          <p class="eyebrow">Assessment listo para GitHub Pages</p>
+          <h1>Test de competencias y Big Five (50 preguntas)</h1>
+          <p class="lead">
+            Cinco módulos interactivos con cronómetro global, navegación guiada y
+            resultados en porcentaje para innovación, liderazgo, adaptación,
+            comunicación, estilo de trabajo y personalidad Big Five.
+          </p>
+          <ul class="bullets">
+            <li>Bloquea avance hasta completar cada módulo</li>
+            <li>Escala likert y escenarios realistas</li>
+            <li>Resultados claros con descripciones y barras</li>
+          </ul>
         </div>
-    </div>
-
-
-    <!-- ==========================
-         MODULE SELECTION SCREEN
-    ============================ -->
-    <div class="screen hidden" id="module-screen">
-        <div class="card">
-            <h2>Choose Your Module</h2>
-            <p>You must complete the modules in order. Each module has a time limit.</p>
-
-            <div class="module-list">
-                <button class="module-btn" id="modA-btn" data-module="A">Module A – Logical Reasoning (10 questions – 7 min)</button>
-                <button class="module-btn locked" id="modB-btn" data-module="B">Module B – Executive Scenarios (20 questions – 20 min)</button>
-                <button class="module-btn locked" id="modC-btn" data-module="C">Module C – Personality Assessment (10 questions – 7 min)</button>
-                <button class="module-btn locked" id="modD-btn" data-module="D">Module D – Innovation & Problem Solving (10 questions – 7 min)</button>
+        <div class="hero__card">
+          <form id="start-form">
+            <div class="field">
+              <label for="nombre">Nombre</label>
+              <input id="nombre" name="nombre" type="text" required />
             </div>
-        </div>
-    </div>
-
-
-    <!-- ==========================
-         MODULE QUESTION SCREEN
-    ============================ -->
-    <div class="screen hidden" id="question-screen">
-        <div class="card">
-
-            <div class="timer-box">
-                <span id="timer-label">Time Left:</span>
-                <span id="timer"></span>
+            <div class="field">
+              <label for="cargo">Cargo al que aplica</label>
+              <input id="cargo" name="cargo" type="text" required />
             </div>
-
-            <h2 id="module-title"></h2>
-
-            <p id="question-count"></p>
-            <p id="question-text"></p>
-
-            <div id="options-container"></div>
-
-            <button id="next-question-btn" disabled>Next</button>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+            <p class="helper">
+              El cronómetro (20 minutos) inicia al presionar “Comenzar”. Si sales
+              de la página, deberás reiniciar.
+            </p>
+            <button class="primary" type="submit">Comenzar evaluación</button>
+          </form>
         </div>
+      </header>
+
+      <section id="status-panel" class="status"></section>
+      <section id="module-panel" class="module"></section>
+      <section id="results-panel" class="results hidden"></section>
     </div>
 
-
-    <!-- ==========================
-         FINAL RESULTS SCREEN
-    ============================ -->
-    <div class="screen hidden" id="results-screen">
-        <div class="card">
-            <h1>Assessment Results</h1>
-
-            <h3>Your Overall Score</h3>
-            <p id="final-percentage" class="big-score"></p>
-            <p id="final-summary"></p>
-
-            <h3>Competency Breakdown</h3>
-            <div id="competency-results"></div>
-
-            <h3>Personality Profile (OCEAN)</h3>
-            <div id="ocean-results"></div>
-
-            <h3>Manager Recommendations</h3>
-            <div id="manager-tips"></div>
-
-            <button id="download-pdf-btn">Download Full PDF Report</button>
-        </div>
-    </div>
-
-
-    <script src="script.js"></script>
-    <script src="pdf.js"></script>
-
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
